@@ -12,18 +12,18 @@
     backup: "Backup responsibilities",
   };
 
-  /** Field coords in SVG viewBox 0–100 (home bottom, 2B top) — fan mock layout */
+  /** Field coords in SVG viewBox 0–100 (home bottom, 2B top) */
   const FIELD = {
-    home: { x: 50, y: 86 },
-    "1B": { x: 74, y: 58 },
-    "2B": { x: 50, y: 32 },
-    "3B": { x: 26, y: 58 },
-    P: { x: 50, y: 60 },
-    C: { x: 50, y: 94 },
-    SS: { x: 38, y: 44 },
-    LF: { x: 22, y: 22 },
-    CF: { x: 50, y: 14 },
-    RF: { x: 78, y: 22 },
+    home: { x: 50, y: 88 },
+    "1B": { x: 78, y: 58 },
+    "2B": { x: 50, y: 28 },
+    "3B": { x: 22, y: 58 },
+    P: { x: 50, y: 62 },
+    C: { x: 50, y: 92 },
+    SS: { x: 36, y: 42 },
+    LF: { x: 18, y: 22 },
+    CF: { x: 50, y: 12 },
+    RF: { x: 82, y: 22 },
     "cutoff-home": { x: 50, y: 48 },
     "cutoff-3B": { x: 38, y: 48 },
     "mound-1B": { x: 60, y: 56 },
@@ -33,19 +33,19 @@
   };
 
   const BALL_LANDING = {
-    "1B": { x: 70, y: 54 },
-    SS: { x: 40, y: 46 },
-    LF: { x: 24, y: 26 },
-    RF: { x: 76, y: 26 },
+    "1B": { x: 72, y: 54 },
+    SS: { x: 38, y: 44 },
+    LF: { x: 22, y: 28 },
+    RF: { x: 78, y: 30 },
     CF: { x: 50, y: 18 },
-    "2B": { x: 50, y: 34 },
+    "2B": { x: 50, y: 30 },
     "mound-1B": { x: 60, y: 56 },
-    "SS-LF": { x: 30, y: 36 },
-    "3B": { x: 30, y: 62 },
-    home: { x: 50, y: 80 },
+    "SS-LF": { x: 28, y: 34 },
+    "3B": { x: 30, y: 64 },
+    home: { x: 48, y: 80 },
     backstop: { x: 50, y: 97 },
     gap: { x: 68, y: 22 },
-    C: { x: 50, y: 92 },
+    C: { x: 50, y: 90 },
   };
 
   const BASE_ORDER = ["home", "1B", "2B", "3B", "home"];
@@ -113,7 +113,11 @@
   }
 
   function updateRunningScore() {
-    syncDrillHud();
+    const el = $("#drill-score");
+    if (!el) return;
+    const plays = state.answers.length;
+    const score = sessionScore(plays, state.correctCount, state.starsEarned);
+    el.innerHTML = "Score <strong>" + score + "</strong>";
   }
 
   function shuffleCopy(arr) {
@@ -472,193 +476,90 @@
     return starts;
   }
 
-  /* ——— Diamond markup (fan field matching mock) ——— */
-  function fieldStaticLayers() {
-    const h = FIELD.home;
-    const b1 = FIELD["1B"];
-    const b2 = FIELD["2B"];
-    const b3 = FIELD["3B"];
-    const dirt =
-      h.x +
-      "," +
-      h.y +
-      " " +
-      b1.x +
-      "," +
-      b1.y +
-      " " +
-      b2.x +
-      "," +
-      b2.y +
-      " " +
-      b3.x +
-      "," +
-      b3.y;
-    function baseSquare(p, size) {
-      const s = size || 4.6;
-      const half = s / 2;
-      return (
-        '<rect x="' +
-        (p.x - half) +
-        '" y="' +
-        (p.y - half) +
-        '" width="' +
-        s +
-        '" height="' +
-        s +
-        '" fill="#ffffff" transform="rotate(45 ' +
-        p.x +
-        " " +
-        p.y +
-        ')"/>'
-      );
-    }
-    return (
-      '<!-- Grass fan + lime fence -->' +
-      '<path d="M50,90 L15,22 A76 76 0 0 1 85,22 Z" fill="#1f6b4c"/>' +
-      '<path d="M15,22 A76 76 0 0 1 85,22" fill="none" stroke="#d4ff5a" stroke-width="2.8" stroke-linecap="round"/>' +
-      '<line x1="50" y1="90" x2="15" y2="22" stroke="#ffffff" stroke-width="1.35" stroke-linecap="round"/>' +
-      '<line x1="50" y1="90" x2="85" y2="22" stroke="#ffffff" stroke-width="1.35" stroke-linecap="round"/>' +
-      '<!-- Dirt infield + chalk -->' +
-      '<polygon points="' +
-      dirt +
-      '" fill="#c9a872"/>' +
-      '<polygon points="' +
-      dirt +
-      '" fill="none" stroke="#ffffff" stroke-width="1.55" stroke-linejoin="round"/>' +
-      baseSquare(h, 5) +
-      baseSquare(b1) +
-      baseSquare(b2) +
-      baseSquare(b3) +
-      '<!-- Pitcher oval + rubber -->' +
-      '<ellipse cx="50" cy="60" rx="6.2" ry="4.2" fill="#b8956a" stroke="#ffffff" stroke-width="1.2"/>' +
-      '<rect x="47.4" y="58.9" width="5.2" height="2" rx="0.35" fill="#ffffff"/>'
-    );
-  }
-
-  function posBubbleMarkup(pos, selected) {
-    const p = FIELD[pos];
-    const isYou = pos === selected;
-    // Mock: unselected = translucent outlined bubble; selected = solid blue + dashed ring
-    const fill = isYou ? "#2b7cff" : "rgba(255,255,255,0.16)";
-    const stroke = isYou ? "#2b7cff" : "rgba(255,255,255,0.7)";
-    const ink = "#ffffff";
-    const ring = isYou
-      ? '<circle cx="' +
-        p.x +
-        '" cy="' +
-        p.y +
-        '" r="9.2" fill="none" stroke="#2b7cff" stroke-width="1.2" stroke-dasharray="2.4 1.8" opacity="0.95"/>'
-      : "";
-    return (
-      '<g class="pos-bubble' +
-      (isYou ? " you" : "") +
-      '">' +
-      ring +
-      '<circle cx="' +
-      p.x +
-      '" cy="' +
-      p.y +
-      '" r="5.7" fill="' +
-      fill +
-      '" stroke="' +
-      stroke +
-      '" stroke-width="1.15"/>' +
-      '<text x="' +
-      p.x +
-      '" y="' +
-      p.y +
-      '" text-anchor="middle" dominant-baseline="central" fill="' +
-      ink +
-      '" font-size="4.1" font-family="Manrope,sans-serif" font-weight="800">' +
-      pos +
-      "</text></g>"
-    );
-  }
-
+  /* ——— Diamond markup ——— */
   function renderDiamondShell(sit, position) {
+    const you = FIELD[position] || FIELD.SS;
     const runners = resolveRunners(sit);
 
     const runnerEls = runners
       .map((r, i) => {
         const p = pt(r.start);
-        return (
-          '<g class="runner-g" data-runner="' +
-          i +
-          '" data-start="' +
-          r.start +
-          '" transform="translate(' +
-          p.x +
-          "," +
-          p.y +
-          ')">' +
-          '<circle class="runner-dot" cx="0" cy="0" r="3.6" fill="#ff8a1a" stroke="#00241a" stroke-width="0.7"/>' +
-          "</g>"
-        );
+        return `<g class="runner-g" data-runner="${i}" data-start="${r.start}" transform="translate(${p.x},${p.y})">
+          <ellipse class="runner-shadow" cx="0" cy="1.8" rx="2.4" ry="1.1" fill="rgba(0,0,0,0.35)"/>
+          <circle class="runner-dot" cx="0" cy="0" r="3.1" fill="#f0a020" stroke="#071a14" stroke-width="0.75"/>
+          <text class="runner-label" x="0" y="-5.2" text-anchor="middle" fill="#f0a020" font-size="3.1" font-family="Manrope,sans-serif" font-weight="700">R</text>
+        </g>`;
       })
       .join("");
 
-    const posSpots = POSITIONS.map((pos) => posBubbleMarkup(pos, position)).join(
-      ""
-    );
+    const posSpots = POSITIONS.map((pos) => {
+      const p = FIELD[pos];
+      const isYou = pos === position;
+      return `<circle class="pos-spot${isYou ? " you" : ""}" cx="${p.x}" cy="${p.y}" r="${isYou ? 4.2 : 2.4}" fill="${isYou ? "#b8e23a" : "rgba(232,239,230,0.22)"}" stroke="${isYou ? "#d4ff5a" : "rgba(232,239,230,0.35)"}" stroke-width="${isYou ? 1.2 : 0.5}"/>
+        <text x="${p.x}" y="${p.y + (isYou ? 8 : 6.5)}" text-anchor="middle" fill="${isYou ? "#d4ff5a" : "rgba(232,239,230,0.55)"}" font-size="${isYou ? 3.6 : 2.8}" font-family="Manrope,sans-serif" font-weight="${isYou ? 800 : 600}">${pos}</text>`;
+    }).join("");
 
-    return (
-      '<svg class="diamond-svg" viewBox="0 0 100 100" role="img" aria-label="Softball diamond with play animation">' +
-      fieldStaticLayers() +
-      posSpots +
-      '<path id="pitch-trail" class="pitch-trail" d="" fill="none" stroke="rgba(232,239,230,0.45)" stroke-width="1" stroke-linecap="round" stroke-dasharray="1.4 1.6"/>' +
-      '<path id="ball-trail" class="ball-trail" d="" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.15" stroke-linecap="round" stroke-dasharray="1.8 1.5"/>' +
-      '<path id="throw-trail" class="throw-trail" d="" fill="none" stroke="#b8e23a" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 1.5"/>' +
-      runnerEls +
-      '<g id="ball-g" class="ball-g" opacity="0">' +
-      '<ellipse id="ball-shadow" cx="0" cy="0" rx="2.2" ry="1.1" fill="rgba(0,0,0,0.4)"/>' +
-      '<circle id="ball-dot" cx="0" cy="0" r="2.5" fill="#d4ff00" stroke="#c0392b" stroke-width="0.55"/>' +
-      "</g></svg>"
-    );
+    return `
+      <svg class="diamond-svg" viewBox="0 0 100 100" role="img" aria-label="Softball diamond with play animation">
+        <defs>
+          <linearGradient id="dirt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c4a574"/>
+            <stop offset="100%" stop-color="#9a7a4f"/>
+          </linearGradient>
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="0.6" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <polygon points="50,88 78,58 50,28 22,58" fill="url(#dirt)" opacity="0.85"/>
+        <polygon points="50,88 78,58 50,28 22,58" fill="none" stroke="rgba(232,239,230,0.55)" stroke-width="1.2"/>
+        <rect x="47.5" y="85.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 50 88)"/>
+        <rect x="75.5" y="55.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 78 58)"/>
+        <rect x="47.5" y="25.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 50 28)"/>
+        <rect x="19.5" y="55.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 22 58)"/>
+        <circle cx="50" cy="62" r="3.5" fill="#b8956a" opacity="0.9"/>
+        ${posSpots}
+        <path id="pitch-trail" class="pitch-trail" d="" fill="none" stroke="rgba(232,239,230,0.28)" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1.2 1.4"/>
+        <path id="ball-trail" class="ball-trail" d="" fill="none" stroke="rgba(232,239,230,0.4)" stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.6 1.2"/>
+        <path id="throw-trail" class="throw-trail" d="" fill="none" stroke="rgba(184,226,58,0.55)" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 1.4"/>
+        ${runnerEls}
+        <g id="ball-g" class="ball-g" opacity="0">
+          <ellipse id="ball-shadow" cx="0" cy="0" rx="2.2" ry="1.1" fill="rgba(0,0,0,0.4)"/>
+          <circle id="ball-dot" cx="0" cy="0" r="2.2" fill="#e8efe6" stroke="#b8e23a" stroke-width="0.85" filter="url(#softGlow)"/>
+        </g>
+        <circle cx="${you.x}" cy="${you.y}" r="7" fill="none" stroke="#b8e23a" stroke-width="0.7" opacity="0.55" stroke-dasharray="2 1.5"/>
+      </svg>
+    `;
   }
 
   function setPhaseBanner(phase) {
-    const el = $("#phase-chip");
+    const el = $("#phase-banner");
     if (!el) return;
-    // Mock chrome: GET READY through pitch/freeze/read; DECIDE on ask
-    if (phase === "ask") {
-      el.hidden = false;
-      el.textContent = "DECIDE";
-    } else if (
-      phase === "setup" ||
-      phase === "pitch-cue" ||
-      phase === "playin" ||
-      phase === "freeze" ||
-      phase === "read"
-    ) {
-      el.hidden = false;
-      el.textContent = "GET READY";
+    el.className = "phase-banner";
+    if (phase === "setup") {
+      el.textContent = "Set";
+      el.classList.add("ask");
+    } else if (phase === "pitch-cue") {
+      el.textContent = "Pitch";
+      el.classList.add("live");
+    } else if (phase === "playin") {
+      el.textContent = "Play";
+      el.classList.add("live");
+    } else if (phase === "freeze") {
+      el.textContent = "Freeze";
+      el.classList.add("freeze");
+    } else if (phase === "read") {
+      el.textContent = "Read";
+      el.classList.add("read");
+    } else if (phase === "ask") {
+      el.textContent = "Decide";
+      el.classList.add("ask");
+    } else if (phase === "finish") {
+      el.textContent = "Finish";
+      el.classList.add("live");
     } else {
-      el.hidden = true;
+      el.textContent = "";
     }
-  }
-
-  function syncDrillHud() {
-    const total = state.queue.length || 5;
-    const n = state.index + 1;
-    const plays = state.answers.length;
-    const score = sessionScore(plays, state.correctCount, state.starsEarned);
-    const playHtml = "PLAY <em>" + n + "</em> / " + total;
-    const scoreHtml = "SCORE: <strong>" + score + "</strong>";
-    const posHtml =
-      "POSITION: <strong>" + (state.position || "—") + "</strong>";
-    const prog = $("#drill-progress");
-    const sc = $("#drill-score");
-    const pos = $("#drill-pos");
-    if (prog) prog.innerHTML = playHtml;
-    if (sc) sc.innerHTML = scoreHtml;
-    if (pos) pos.innerHTML = posHtml;
-    const fp = $("#fb-progress");
-    const fs = $("#fb-score");
-    const fpos = $("#fb-pos");
-    if (fp) fp.innerHTML = playHtml;
-    if (fs) fs.innerHTML = scoreHtml;
-    if (fpos) fpos.innerHTML = posHtml;
   }
 
   /** Read beat before choices — long enough for 8U–14U to finish the prompt */
@@ -975,7 +876,10 @@
     state.phase = "setup";
     showScreen("drill");
 
-    syncDrillHud();
+    $("#drill-progress").textContent =
+      "Play " + (state.index + 1) + " / " + state.queue.length;
+    $("#drill-pos").innerHTML = "You · <strong>" + state.position + "</strong>";
+    updateRunningScore();
 
     // 1) Situation first — count / outs / runners, runners on diamond, no ball motion
     $("#play-cue").textContent = situationSetupLine(sit);
@@ -992,7 +896,9 @@
     setAskControlsVeiled(true);
 
     const wrap = $("#diamond-wrap");
-    wrap.innerHTML = renderDiamondShell(sit, state.position);
+    wrap.innerHTML =
+      '<div class="phase-banner" id="phase-banner"></div>' +
+      renderDiamondShell(sit, state.position);
     setPhaseBanner("setup");
     // Hide ball until pitch starts
     setBallVisual(FIELD.P.x, FIELD.P.y, 0, false);
@@ -1304,42 +1210,31 @@
   }
 
   function showFeedback(sit, stars, correct, timedOut) {
-    syncDrillHud();
-    let headline = "MISS!";
-    let titleClass = "feedback-title miss";
+    const title = $("#feedback-title");
     if (timedOut) {
-      headline = "TIME!";
+      title.textContent = "Time!";
+      title.className = "feedback-title miss";
     } else if (correct) {
-      headline =
-        stars === 3 ? "QUICK!" : stars === 2 ? "SOLID!" : "GOT IT!";
-      titleClass = "feedback-title hit";
+      title.textContent = stars === 3 ? "Quick!" : stars === 2 ? "Solid" : "Got it";
+      title.className = "feedback-title hit";
+    } else {
+      title.textContent = "Miss";
+      title.className = "feedback-title miss";
     }
 
-    const field = $("#feedback-field");
-    if (field) {
-      field.innerHTML =
-        renderDiamondShell(sit, state.position) +
-        '<div class="feedback-overlay">' +
-        '<div class="stars" id="stars" aria-label="Stars earned">' +
-        '<div class="star"></div><div class="star"></div><div class="star"></div>' +
-        "</div>" +
-        '<h2 class="' +
-        titleClass +
-        '" id="feedback-title">' +
-        headline +
-        "</h2></div>";
-    }
-
+    $$("#stars .star").forEach((el, i) => {
+      el.classList.remove("on");
+      el.classList.remove("star-pop");
+    });
     $("#explanation").textContent = sit.explanation;
     const nextBtn = $("#btn-next");
     const isLast = state.index >= state.queue.length - 1;
-    nextBtn.textContent = isLast ? "See Session Summary" : "Next Situation";
+    nextBtn.textContent = isLast ? "See session summary" : "Next situation";
     showScreen("feedback");
 
+    // Stagger star pops after screen is up (prompt/layout untouched)
     requestAnimationFrame(() => {
       $$("#stars .star").forEach((el, i) => {
-        el.classList.remove("on");
-        el.classList.remove("star-pop");
         if (i < stars) {
           schedule(() => {
             el.classList.add("on");
@@ -1347,10 +1242,9 @@
           }, 80 + i * 90);
         }
       });
-      const expl = $("#explanation");
-      expl.classList.remove("explain-in");
-      void expl.offsetWidth;
-      expl.classList.add("explain-in");
+      $("#explanation").classList.remove("explain-in");
+      void $("#explanation").offsetWidth;
+      $("#explanation").classList.add("explain-in");
     });
   }
 
@@ -1362,7 +1256,7 @@
       : 0;
     const score = sessionScore(total, state.correctCount, state.starsEarned);
     const level = levelForScore(score);
-    $("#sum-level").textContent = level.toUpperCase();
+    $("#sum-level").textContent = level;
     $("#sum-score").textContent = String(score);
     $("#sum-stars").textContent = String(state.starsEarned);
     $("#sum-accuracy").textContent = accuracyPct + "%";
@@ -1415,20 +1309,14 @@
   function renderPositionGrid() {
     const field = $("#pos-field");
     if (!field) return;
-    // Same fan field as drill; OF → middle → corners → battery
+    // Diamond order for a11y / DOM: OF → middle → corners → battery
     const order = ["LF", "CF", "RF", "SS", "2B", "3B", "1B", "P", "C"];
-    field.innerHTML =
-      '<svg class="pos-field-svg" viewBox="0 0 100 100" aria-hidden="true">' +
-      fieldStaticLayers() +
-      "</svg>";
+    field.innerHTML = "";
     order.forEach((pos) => {
-      const p = FIELD[pos];
       const btn = document.createElement("button");
       btn.type = "button";
       btn.textContent = pos;
       btn.dataset.pos = pos;
-      btn.style.left = p.x + "%";
-      btn.style.top = p.y + "%";
       btn.setAttribute("aria-label", "Position " + pos);
       btn.setAttribute("aria-pressed", state.position === pos ? "true" : "false");
       btn.classList.toggle("selected", state.position === pos);
@@ -1440,6 +1328,8 @@
       });
       field.appendChild(btn);
     });
+    const age = $("#pos-age");
+    if (age) age.textContent = state.ageBand;
   }
 
   function initPosition() {
