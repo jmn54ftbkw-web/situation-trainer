@@ -111,20 +111,27 @@ body {
   gap: 10px;
   padding-bottom: 8px;
   position: relative;
+  min-height: 0;
 }
 
-/* Large mark fills the empty upper hero (same idea as the old watermark placement) */
+/* Upper blank zone — mark sits large and centered here */
+.home-mark-stage {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  margin: 0 0 4px;
+  pointer-events: none;
+}
+
 .home-mark {
-  position: absolute;
-  top: 2%;
-  left: 50%;
-  width: min(68%, 248px);
+  width: min(72%, 260px);
   height: auto;
   aspect-ratio: 1;
-  max-height: 48%;
+  max-height: min(42dvh, 280px);
   margin: 0;
   display: block;
-  pointer-events: none;
   filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5));
   animation: mark-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -132,11 +139,11 @@ body {
 @keyframes mark-in {
   from {
     opacity: 0;
-    transform: translateX(-50%) scale(0.88);
+    transform: scale(0.88);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: scale(1);
   }
 }
 
