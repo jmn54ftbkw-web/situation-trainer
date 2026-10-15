@@ -18,63 +18,117 @@
           <div class="home-mark-stage" aria-hidden="true">
           <svg
             class="home-mark"
-            viewBox="0 0 96 96"
+            viewBox="0 0 110 110"
             focusable="false"
           >
-            <!-- Badge disc -->
-            <circle cx="48" cy="48" r="45" fill="#12382c" />
-            <circle cx="48" cy="48" r="45" fill="none" stroke="#b8e23a" stroke-width="3" />
-            <circle cx="48" cy="48" r="40" fill="#0f3328" />
-            <!-- Grass arcs outside dirt -->
+            <defs>
+              <clipPath id="home-field-clip">
+                <circle cx="50" cy="48" r="40" />
+              </clipPath>
+            </defs>
+            <!-- Field: dark outfield + tan diamond + chalk + lime foul lines -->
+            <g clip-path="url(#home-field-clip)">
+              <circle cx="50" cy="48" r="40" fill="#0f3328" />
+              <polygon points="50,74 72,52 50,30 28,52" fill="#c4a06a" />
+              <polygon
+                points="50,74 72,52 50,30 28,52"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              />
+              <line
+                x1="50"
+                y1="74"
+                x2="10"
+                y2="34"
+                stroke="#c8e84a"
+                stroke-width="2.4"
+                stroke-linecap="round"
+              />
+              <line
+                x1="50"
+                y1="74"
+                x2="90"
+                y2="34"
+                stroke="#c8e84a"
+                stroke-width="2.4"
+                stroke-linecap="round"
+              />
+              <!-- Bases (white squares) -->
+              <rect
+                x="46.6"
+                y="26.6"
+                width="6.8"
+                height="6.8"
+                fill="#ffffff"
+                transform="rotate(45 50 30)"
+              />
+              <rect
+                x="68.6"
+                y="48.6"
+                width="6.8"
+                height="6.8"
+                fill="#ffffff"
+                transform="rotate(45 72 52)"
+              />
+              <rect
+                x="24.6"
+                y="48.6"
+                width="6.8"
+                height="6.8"
+                fill="#ffffff"
+                transform="rotate(45 28 52)"
+              />
+              <rect
+                x="46.6"
+                y="70.6"
+                width="6.8"
+                height="6.8"
+                fill="#ffffff"
+                transform="rotate(45 50 74)"
+              />
+              <!-- Pitcher oval + rubber -->
+              <ellipse cx="50" cy="54" rx="7.2" ry="4.6" fill="#ffffff" />
+              <line
+                x1="45.2"
+                y1="54"
+                x2="54.8"
+                y2="54"
+                stroke="#0f3328"
+                stroke-width="1.35"
+                stroke-linecap="round"
+              />
+            </g>
+            <!-- Ring: lime foul-arc on top, mid-green elsewhere -->
             <path
-              d="M22 52 A26 26 0 0 1 74 52"
+              d="M 12.4 34.4 A 40 40 0 0 1 87.6 34.4"
               fill="none"
-              stroke="#1f6a4f"
-              stroke-width="10"
+              stroke="#c8e84a"
+              stroke-width="3.2"
               stroke-linecap="butt"
             />
-            <!-- Dirt infield -->
-            <polygon points="48,80 76,52 48,24 20,52" fill="#c9a06a" />
-            <!-- Chalk diamond -->
-            <polygon
-              points="48,80 76,52 48,24 20,52"
-              fill="none"
-              stroke="#f2f6ef"
-              stroke-width="2.25"
-              stroke-linejoin="round"
-            />
-            <!-- Baseline lime accent -->
-            <polyline
-              points="20,52 48,80 76,52"
-              fill="none"
-              stroke="#b8e23a"
-              stroke-width="2.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <!-- Bases -->
-            <rect x="45" y="21.8" width="6" height="6" fill="#f2f6ef" transform="rotate(45 48 24.8)" />
-            <rect x="73" y="49" width="6" height="6" fill="#f2f6ef" transform="rotate(45 76 52)" />
-            <rect x="17" y="49" width="6" height="6" fill="#f2f6ef" transform="rotate(45 20 52)" />
-            <!-- Home plate -->
-            <path d="M44 76 L48 82 L52 76 L52 72.2 L44 72.2 Z" fill="#f2f6ef" />
-            <!-- Pitcher's circle + rubber -->
-            <circle cx="48" cy="54.5" r="8" fill="#b8925a" stroke="#f2f6ef" stroke-width="1.4" />
-            <rect x="44.8" y="53" width="6.4" height="2.6" rx="0.5" fill="#b8e23a" />
-            <!-- Soft ball accent -->
-            <circle cx="68" cy="32" r="6" fill="#d4ff5a" />
             <path
-              d="M64.8 29.8 C66.4 31.6 66.4 34.4 64.8 36.2"
+              d="M 87.6 34.4 A 40 40 0 1 1 12.4 34.4"
               fill="none"
-              stroke="#12382c"
-              stroke-width="1.25"
+              stroke="#2f7a58"
+              stroke-width="3.2"
+              stroke-linecap="butt"
+            />
+            <!-- Soft ball overlapping lower-right of the ring -->
+            <circle cx="86" cy="80" r="16" fill="#c8e84a" />
+            <path
+              d="M 80.2 72.8 C 84.2 76.2 84.2 83.8 80.2 87.2"
+              fill="none"
+              stroke="#0f3328"
+              stroke-width="1.7"
               stroke-linecap="round"
             />
             <path
-              d="M71.2 29.8 C69.6 31.6 69.6 34.4 71.2 36.2"
+              d="M 91.8 72.8 C 87.8 76.2 87.8 83.8 91.8 87.2"
               fill="none"
-              stroke="#12382c"
-              stroke-width="1.25"
+              stroke="#0f3328"
+              stroke-width="1.7"
               stroke-linecap="round"
             />
           </svg>

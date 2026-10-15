@@ -132,7 +132,8 @@ body {
   max-height: min(50dvh, 320px);
   margin: 0;
   display: block;
-  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5));
+  /* Flat mark — matches the photo art, not a floating chrome badge */
+  filter: none;
   animation: mark-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
