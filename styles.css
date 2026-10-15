@@ -126,10 +126,10 @@ body {
 }
 
 .home-mark {
-  width: min(72%, 260px);
+  width: min(86%, 310px);
   height: auto;
   aspect-ratio: 1;
-  max-height: min(42dvh, 280px);
+  max-height: min(50dvh, 320px);
   margin: 0;
   display: block;
   filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5));
