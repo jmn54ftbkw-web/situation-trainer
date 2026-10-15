@@ -197,10 +197,18 @@ body {
 }
 
 .seg button:active,
-.pos-field button:active,
 .choice:active,
 .btn:active {
   transform: scale(0.98);
+}
+
+/* Keep translate centering — bare scale() jumps the label down/right */
+.pos-field button:active {
+  transform: translate(-50%, -50%) scale(0.98);
+}
+
+.pos-field button:hover {
+  transform: translate(-50%, -50%);
 }
 
 .btn {
@@ -308,19 +316,13 @@ body {
   border-color: var(--lime-hot);
   color: var(--lime-hot);
   z-index: 2;
-  animation: pos-select 0.28s ease;
+  box-shadow: 0 0 0 2px rgba(184, 226, 58, 0.35);
+  /* No transform animation — must stay at translate(-50%, -50%) */
 }
 
-@keyframes pos-select {
-  0% {
-    transform: translate(-50%, -50%) scale(0.94);
-  }
-  55% {
-    transform: translate(-50%, -50%) scale(1.08);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
+.pos-field button.selected:active,
+.pos-field button.selected:hover {
+  transform: translate(-50%, -50%);
 }
 
 /* Field map — matches drill diamond layout */
@@ -763,6 +765,41 @@ body {
   margin: 8px 0 0;
   color: var(--chalk-dim);
   font-size: 0.9rem;
+}
+
+.level-label {
+  margin: 0 !important;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lime-hot);
+  line-height: 1;
+}
+
+.session-score {
+  font-family: var(--font-display);
+  font-size: 4.2rem;
+  color: var(--lime);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  margin: 6px 0 0;
+}
+
+.score-formula {
+  margin: 10px 0 0 !important;
+  font-size: 0.78rem !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--chalk) !important;
+}
+
+.score-blurb {
+  margin: 6px 0 0 !important;
+}
+
+.drill-meta #drill-score strong {
+  font-variant-numeric: tabular-nums;
 }
 
 .stats {

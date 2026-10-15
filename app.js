@@ -97,6 +97,40 @@
     };
   }
 
+  /** Session score 0–1000 from accuracy (0–1) and stars earned vs max (plays × 3). */
+  function sessionScore(plays, correctCount, starsEarned) {
+    if (!plays) return 0;
+    const accuracy = correctCount / plays;
+    const starRate = starsEarned / (plays * 3);
+    return Math.round(1000 * (0.5 * accuracy + 0.5 * starRate));
+  }
+
+  function levelForScore(score) {
+    if (score >= 800) return "All-Star";
+    if (score >= 600) return "Varsity";
+    if (score >= 400) return "Starter";
+    return "Bench";
+  }
+
+  function updateRunningScore() {
+    const el = $("#drill-score");
+    if (!el) return;
+    const plays = state.answers.length;
+    const score = sessionScore(plays, state.correctCount, state.starsEarned);
+    el.innerHTML = "Score <strong>" + score + "</strong>";
+  }
+
+  function shuffleCopy(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
   function starsForAnswer(correct, elapsed, timedOut) {
     if (!correct || timedOut) return 0;
     const left = Math.max(0, state.timerTotal - elapsed);
@@ -543,7 +577,8 @@
   function buildChoiceButtons(sit) {
     const choicesEl = $("#choices");
     choicesEl.innerHTML = "";
-    sit.choices.forEach((c) => {
+    // Shuffle display order so correct isn't stacked in slot 1; ids stay for grading
+    shuffleCopy(sit.choices).forEach((c) => {
       const btn = document.createElement("button");
       btn.className = "choice";
       btn.type = "button";
@@ -844,6 +879,7 @@
     $("#drill-progress").textContent =
       "Play " + (state.index + 1) + " / " + state.queue.length;
     $("#drill-pos").innerHTML = "You · <strong>" + state.position + "</strong>";
+    updateRunningScore();
 
     // 1) Situation first — count / outs / runners, runners on diamond, no ball motion
     $("#play-cue").textContent = situationSetupLine(sit);
@@ -1155,6 +1191,7 @@
       timedOut: !!timedOut,
       choiceId,
     });
+    updateRunningScore();
 
     // Highlight choice, stay on diamond for finish animation
     $$("#choices .choice").forEach((btn) => {
@@ -1214,9 +1251,27 @@
   function showSummary() {
     showScreen("summary");
     const total = state.queue.length;
-    const accuracy = total ? Math.round((state.correctCount / total) * 100) : 0;
+    const accuracyPct = total
+      ? Math.round((state.correctCount / total) * 100)
+      : 0;
+    const score = sessionScore(total, state.correctCount, state.starsEarned);
+    const level = levelForScore(score);
+    $("#sum-level").textContent = level;
+    $("#sum-score").textContent = String(score);
+    const formula = $("#sum-formula");
+    if (formula) {
+      const acc = total ? (state.correctCount / total).toFixed(2) : "0";
+      const starPart =
+        state.starsEarned + " / (" + total + " × 3)";
+      formula.textContent =
+        "score = round(1000 × (0.5 × " +
+        acc +
+        " + 0.5 × (" +
+        starPart +
+        ")))";
+    }
     $("#sum-stars").textContent = String(state.starsEarned);
-    $("#sum-accuracy").textContent = accuracy + "%";
+    $("#sum-accuracy").textContent = accuracyPct + "%";
     $("#sum-correct").textContent = state.correctCount + " / " + total;
 
     const missTags = {};
