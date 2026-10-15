@@ -786,16 +786,8 @@ body {
   margin: 6px 0 0;
 }
 
-.score-formula {
-  margin: 10px 0 0 !important;
-  font-size: 0.78rem !important;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--chalk) !important;
-}
-
 .score-blurb {
-  margin: 6px 0 0 !important;
+  margin: 10px 0 0 !important;
 }
 
 .drill-meta #drill-score strong {

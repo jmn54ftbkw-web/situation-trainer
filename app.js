@@ -1258,18 +1258,6 @@
     const level = levelForScore(score);
     $("#sum-level").textContent = level;
     $("#sum-score").textContent = String(score);
-    const formula = $("#sum-formula");
-    if (formula) {
-      const acc = total ? (state.correctCount / total).toFixed(2) : "0";
-      const starPart =
-        state.starsEarned + " / (" + total + " × 3)";
-      formula.textContent =
-        "score = round(1000 × (0.5 × " +
-        acc +
-        " + 0.5 × (" +
-        starPart +
-        ")))";
-    }
     $("#sum-stars").textContent = String(state.starsEarned);
     $("#sum-accuracy").textContent = accuracyPct + "%";
     $("#sum-correct").textContent = state.correctCount + " / " + total;
