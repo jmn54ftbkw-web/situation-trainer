@@ -12,18 +12,18 @@
     backup: "Backup responsibilities",
   };
 
-  /** Field coords in SVG viewBox 0–100 (home bottom, 2B top) */
+  /** Field coords in SVG viewBox 0–100 (home bottom, 2B top) — fan mock layout */
   const FIELD = {
-    home: { x: 50, y: 88 },
-    "1B": { x: 78, y: 58 },
-    "2B": { x: 50, y: 28 },
-    "3B": { x: 22, y: 58 },
-    P: { x: 50, y: 62 },
-    C: { x: 50, y: 92 },
-    SS: { x: 36, y: 42 },
-    LF: { x: 18, y: 22 },
-    CF: { x: 50, y: 12 },
-    RF: { x: 82, y: 22 },
+    home: { x: 50, y: 86 },
+    "1B": { x: 74, y: 58 },
+    "2B": { x: 50, y: 32 },
+    "3B": { x: 26, y: 58 },
+    P: { x: 50, y: 60 },
+    C: { x: 50, y: 94 },
+    SS: { x: 38, y: 44 },
+    LF: { x: 22, y: 22 },
+    CF: { x: 50, y: 14 },
+    RF: { x: 78, y: 22 },
     "cutoff-home": { x: 50, y: 48 },
     "cutoff-3B": { x: 38, y: 48 },
     "mound-1B": { x: 60, y: 56 },
@@ -33,19 +33,19 @@
   };
 
   const BALL_LANDING = {
-    "1B": { x: 72, y: 54 },
-    SS: { x: 38, y: 44 },
-    LF: { x: 22, y: 28 },
-    RF: { x: 78, y: 30 },
+    "1B": { x: 70, y: 54 },
+    SS: { x: 40, y: 46 },
+    LF: { x: 24, y: 26 },
+    RF: { x: 76, y: 26 },
     CF: { x: 50, y: 18 },
-    "2B": { x: 50, y: 30 },
+    "2B": { x: 50, y: 34 },
     "mound-1B": { x: 60, y: 56 },
-    "SS-LF": { x: 28, y: 34 },
-    "3B": { x: 30, y: 64 },
-    home: { x: 48, y: 80 },
+    "SS-LF": { x: 30, y: 36 },
+    "3B": { x: 30, y: 62 },
+    home: { x: 50, y: 80 },
     backstop: { x: 50, y: 97 },
     gap: { x: 68, y: 22 },
-    C: { x: 50, y: 90 },
+    C: { x: 50, y: 92 },
   };
 
   const BASE_ORDER = ["home", "1B", "2B", "3B", "home"];
@@ -117,7 +117,7 @@
     if (!el) return;
     const plays = state.answers.length;
     const score = sessionScore(plays, state.correctCount, state.starsEarned);
-    el.innerHTML = "Score <strong>" + score + "</strong>";
+    el.innerHTML = "SCORE: <strong>" + score + "</strong>";
   }
 
   function shuffleCopy(arr) {
@@ -476,60 +476,137 @@
     return starts;
   }
 
-  /* ——— Diamond markup ——— */
+  /* ——— Diamond markup (fan field matching mock) ——— */
+  function fieldStaticLayers() {
+    const h = FIELD.home;
+    const b1 = FIELD["1B"];
+    const b2 = FIELD["2B"];
+    const b3 = FIELD["3B"];
+    const dirt =
+      h.x +
+      "," +
+      h.y +
+      " " +
+      b1.x +
+      "," +
+      b1.y +
+      " " +
+      b2.x +
+      "," +
+      b2.y +
+      " " +
+      b3.x +
+      "," +
+      b3.y;
+    function baseSquare(p, size) {
+      const s = size || 4.6;
+      const half = s / 2;
+      return (
+        '<rect x="' +
+        (p.x - half) +
+        '" y="' +
+        (p.y - half) +
+        '" width="' +
+        s +
+        '" height="' +
+        s +
+        '" fill="#ffffff" transform="rotate(45 ' +
+        p.x +
+        " " +
+        p.y +
+        ')"/>'
+      );
+    }
+    return (
+      '<!-- Grass fan + lime fence -->' +
+      '<path d="M50,90 L15,22 A76 76 0 0 1 85,22 Z" fill="#1f6b4c"/>' +
+      '<path d="M15,22 A76 76 0 0 1 85,22" fill="none" stroke="#d4ff5a" stroke-width="2.8" stroke-linecap="round"/>' +
+      '<line x1="50" y1="90" x2="15" y2="22" stroke="#ffffff" stroke-width="1.35" stroke-linecap="round"/>' +
+      '<line x1="50" y1="90" x2="85" y2="22" stroke="#ffffff" stroke-width="1.35" stroke-linecap="round"/>' +
+      '<!-- Dirt infield + chalk -->' +
+      '<polygon points="' +
+      dirt +
+      '" fill="#c9a872"/>' +
+      '<polygon points="' +
+      dirt +
+      '" fill="none" stroke="#ffffff" stroke-width="1.55" stroke-linejoin="round"/>' +
+      baseSquare(h, 5) +
+      baseSquare(b1) +
+      baseSquare(b2) +
+      baseSquare(b3) +
+      '<!-- Pitcher oval + rubber -->' +
+      '<ellipse cx="50" cy="60" rx="6.2" ry="4.2" fill="none" stroke="#ffffff" stroke-width="1.35"/>' +
+      '<rect x="47.4" y="58.9" width="5.2" height="2" rx="0.35" fill="#ffffff"/>'
+    );
+  }
+
+  function posBubbleMarkup(pos, selected) {
+    const p = FIELD[pos];
+    const isYou = pos === selected;
+    const fill = isYou ? "#b8e23a" : "#6d8f8a";
+    const ink = isYou ? "#0a1f14" : "#ffffff";
+    return (
+      '<g class="pos-bubble' +
+      (isYou ? " you" : "") +
+      '">' +
+      '<circle cx="' +
+      p.x +
+      '" cy="' +
+      p.y +
+      '" r="5.7" fill="' +
+      fill +
+      '"/>' +
+      '<text x="' +
+      p.x +
+      '" y="' +
+      p.y +
+      '" text-anchor="middle" dominant-baseline="central" fill="' +
+      ink +
+      '" font-size="4.1" font-family="Manrope,sans-serif" font-weight="800">' +
+      pos +
+      "</text></g>"
+    );
+  }
+
   function renderDiamondShell(sit, position) {
-    const you = FIELD[position] || FIELD.SS;
     const runners = resolveRunners(sit);
 
     const runnerEls = runners
       .map((r, i) => {
         const p = pt(r.start);
-        return `<g class="runner-g" data-runner="${i}" data-start="${r.start}" transform="translate(${p.x},${p.y})">
-          <ellipse class="runner-shadow" cx="0" cy="1.8" rx="2.4" ry="1.1" fill="rgba(0,0,0,0.35)"/>
-          <circle class="runner-dot" cx="0" cy="0" r="3.1" fill="#f0a020" stroke="#071a14" stroke-width="0.75"/>
-          <text class="runner-label" x="0" y="-5.2" text-anchor="middle" fill="#f0a020" font-size="3.1" font-family="Manrope,sans-serif" font-weight="700">R</text>
-        </g>`;
+        return (
+          '<g class="runner-g" data-runner="' +
+          i +
+          '" data-start="' +
+          r.start +
+          '" transform="translate(' +
+          p.x +
+          "," +
+          p.y +
+          ')">' +
+          '<circle class="runner-dot" cx="0" cy="0" r="3.5" fill="#f5a623" stroke="#0a1f14" stroke-width="0.7"/>' +
+          "</g>"
+        );
       })
       .join("");
 
-    const posSpots = POSITIONS.map((pos) => {
-      const p = FIELD[pos];
-      const isYou = pos === position;
-      return `<circle class="pos-spot${isYou ? " you" : ""}" cx="${p.x}" cy="${p.y}" r="${isYou ? 4.2 : 2.4}" fill="${isYou ? "#b8e23a" : "rgba(232,239,230,0.22)"}" stroke="${isYou ? "#d4ff5a" : "rgba(232,239,230,0.35)"}" stroke-width="${isYou ? 1.2 : 0.5}"/>
-        <text x="${p.x}" y="${p.y + (isYou ? 8 : 6.5)}" text-anchor="middle" fill="${isYou ? "#d4ff5a" : "rgba(232,239,230,0.55)"}" font-size="${isYou ? 3.6 : 2.8}" font-family="Manrope,sans-serif" font-weight="${isYou ? 800 : 600}">${pos}</text>`;
-    }).join("");
+    const posSpots = POSITIONS.map((pos) => posBubbleMarkup(pos, position)).join(
+      ""
+    );
 
-    return `
-      <svg class="diamond-svg" viewBox="0 0 100 100" role="img" aria-label="Softball diamond with play animation">
-        <defs>
-          <linearGradient id="dirt" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c4a574"/>
-            <stop offset="100%" stop-color="#9a7a4f"/>
-          </linearGradient>
-          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.6" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <polygon points="50,88 78,58 50,28 22,58" fill="url(#dirt)" opacity="0.85"/>
-        <polygon points="50,88 78,58 50,28 22,58" fill="none" stroke="rgba(232,239,230,0.55)" stroke-width="1.2"/>
-        <rect x="47.5" y="85.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 50 88)"/>
-        <rect x="75.5" y="55.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 78 58)"/>
-        <rect x="47.5" y="25.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 50 28)"/>
-        <rect x="19.5" y="55.5" width="5" height="5" fill="#e8efe6" transform="rotate(45 22 58)"/>
-        <circle cx="50" cy="62" r="3.5" fill="#b8956a" opacity="0.9"/>
-        ${posSpots}
-        <path id="pitch-trail" class="pitch-trail" d="" fill="none" stroke="rgba(232,239,230,0.28)" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1.2 1.4"/>
-        <path id="ball-trail" class="ball-trail" d="" fill="none" stroke="rgba(232,239,230,0.4)" stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.6 1.2"/>
-        <path id="throw-trail" class="throw-trail" d="" fill="none" stroke="rgba(184,226,58,0.55)" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 1.4"/>
-        ${runnerEls}
-        <g id="ball-g" class="ball-g" opacity="0">
-          <ellipse id="ball-shadow" cx="0" cy="0" rx="2.2" ry="1.1" fill="rgba(0,0,0,0.4)"/>
-          <circle id="ball-dot" cx="0" cy="0" r="2.2" fill="#e8efe6" stroke="#b8e23a" stroke-width="0.85" filter="url(#softGlow)"/>
-        </g>
-        <circle cx="${you.x}" cy="${you.y}" r="7" fill="none" stroke="#b8e23a" stroke-width="0.7" opacity="0.55" stroke-dasharray="2 1.5"/>
-      </svg>
-    `;
+    return (
+      '<svg class="diamond-svg" viewBox="0 0 100 100" role="img" aria-label="Softball diamond with play animation">' +
+      fieldStaticLayers() +
+      posSpots +
+      '<path id="pitch-trail" class="pitch-trail" d="" fill="none" stroke="rgba(232,239,230,0.45)" stroke-width="1" stroke-linecap="round" stroke-dasharray="1.4 1.6"/>' +
+      '<path id="ball-trail" class="ball-trail" d="" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.15" stroke-linecap="round" stroke-dasharray="1.8 1.5"/>' +
+      '<path id="throw-trail" class="throw-trail" d="" fill="none" stroke="#b8e23a" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 1.5"/>' +
+      runnerEls +
+      '<g id="ball-g" class="ball-g" opacity="0">' +
+      '<ellipse id="ball-shadow" cx="0" cy="0" rx="2.2" ry="1.1" fill="rgba(0,0,0,0.4)"/>' +
+      '<circle id="ball-dot" cx="0" cy="0" r="2.35" fill="#d4ff5a" stroke="#0a1f14" stroke-width="0.7"/>' +
+      "</g></svg>"
+    );
   }
 
   function setPhaseBanner(phase) {
@@ -877,8 +954,9 @@
     showScreen("drill");
 
     $("#drill-progress").textContent =
-      "Play " + (state.index + 1) + " / " + state.queue.length;
-    $("#drill-pos").innerHTML = "You · <strong>" + state.position + "</strong>";
+      "PLAY " + (state.index + 1) + " / " + state.queue.length;
+    $("#drill-pos").innerHTML =
+      "POSITION: <strong>" + state.position + "</strong>";
     updateRunningScore();
 
     // 1) Situation first — count / outs / runners, runners on diamond, no ball motion
@@ -1309,14 +1387,20 @@
   function renderPositionGrid() {
     const field = $("#pos-field");
     if (!field) return;
-    // Diamond order for a11y / DOM: OF → middle → corners → battery
+    // Same fan field as drill; OF → middle → corners → battery
     const order = ["LF", "CF", "RF", "SS", "2B", "3B", "1B", "P", "C"];
-    field.innerHTML = "";
+    field.innerHTML =
+      '<svg class="pos-field-svg" viewBox="0 0 100 100" aria-hidden="true">' +
+      fieldStaticLayers() +
+      "</svg>";
     order.forEach((pos) => {
+      const p = FIELD[pos];
       const btn = document.createElement("button");
       btn.type = "button";
       btn.textContent = pos;
       btn.dataset.pos = pos;
+      btn.style.left = p.x + "%";
+      btn.style.top = p.y + "%";
       btn.setAttribute("aria-label", "Position " + pos);
       btn.setAttribute("aria-pressed", state.position === pos ? "true" : "false");
       btn.classList.toggle("selected", state.position === pos);
