@@ -113,11 +113,7 @@
   }
 
   function updateRunningScore() {
-    const el = $("#drill-score");
-    if (!el) return;
-    const plays = state.answers.length;
-    const score = sessionScore(plays, state.correctCount, state.starsEarned);
-    el.innerHTML = "SCORE: <strong>" + score + "</strong>";
+    syncDrillHud();
   }
 
   function shuffleCopy(arr) {
@@ -535,7 +531,7 @@
       baseSquare(b2) +
       baseSquare(b3) +
       '<!-- Pitcher oval + rubber -->' +
-      '<ellipse cx="50" cy="60" rx="6.2" ry="4.2" fill="none" stroke="#ffffff" stroke-width="1.35"/>' +
+      '<ellipse cx="50" cy="60" rx="6.2" ry="4.2" fill="#b8956a" stroke="#ffffff" stroke-width="1.2"/>' +
       '<rect x="47.4" y="58.9" width="5.2" height="2" rx="0.35" fill="#ffffff"/>'
     );
   }
@@ -543,19 +539,31 @@
   function posBubbleMarkup(pos, selected) {
     const p = FIELD[pos];
     const isYou = pos === selected;
-    const fill = isYou ? "#b8e23a" : "#6d8f8a";
-    const ink = isYou ? "#0a1f14" : "#ffffff";
+    // Mock: unselected = translucent outlined bubble; selected = solid blue + dashed ring
+    const fill = isYou ? "#2b7cff" : "rgba(255,255,255,0.16)";
+    const stroke = isYou ? "#2b7cff" : "rgba(255,255,255,0.7)";
+    const ink = "#ffffff";
+    const ring = isYou
+      ? '<circle cx="' +
+        p.x +
+        '" cy="' +
+        p.y +
+        '" r="9.2" fill="none" stroke="#2b7cff" stroke-width="1.2" stroke-dasharray="2.4 1.8" opacity="0.95"/>'
+      : "";
     return (
       '<g class="pos-bubble' +
       (isYou ? " you" : "") +
       '">' +
+      ring +
       '<circle cx="' +
       p.x +
       '" cy="' +
       p.y +
       '" r="5.7" fill="' +
       fill +
-      '"/>' +
+      '" stroke="' +
+      stroke +
+      '" stroke-width="1.15"/>' +
       '<text x="' +
       p.x +
       '" y="' +
@@ -584,7 +592,7 @@
           "," +
           p.y +
           ')">' +
-          '<circle class="runner-dot" cx="0" cy="0" r="3.5" fill="#f5a623" stroke="#0a1f14" stroke-width="0.7"/>' +
+          '<circle class="runner-dot" cx="0" cy="0" r="3.6" fill="#ff8a1a" stroke="#00241a" stroke-width="0.7"/>' +
           "</g>"
         );
       })
@@ -604,39 +612,53 @@
       runnerEls +
       '<g id="ball-g" class="ball-g" opacity="0">' +
       '<ellipse id="ball-shadow" cx="0" cy="0" rx="2.2" ry="1.1" fill="rgba(0,0,0,0.4)"/>' +
-      '<circle id="ball-dot" cx="0" cy="0" r="2.35" fill="#d4ff5a" stroke="#0a1f14" stroke-width="0.7"/>' +
+      '<circle id="ball-dot" cx="0" cy="0" r="2.5" fill="#d4ff00" stroke="#c0392b" stroke-width="0.55"/>' +
       "</g></svg>"
     );
   }
 
   function setPhaseBanner(phase) {
-    const el = $("#phase-banner");
+    const el = $("#phase-chip");
     if (!el) return;
-    el.className = "phase-banner";
-    if (phase === "setup") {
-      el.textContent = "Set";
-      el.classList.add("ask");
-    } else if (phase === "pitch-cue") {
-      el.textContent = "Pitch";
-      el.classList.add("live");
-    } else if (phase === "playin") {
-      el.textContent = "Play";
-      el.classList.add("live");
-    } else if (phase === "freeze") {
-      el.textContent = "Freeze";
-      el.classList.add("freeze");
-    } else if (phase === "read") {
-      el.textContent = "Read";
-      el.classList.add("read");
-    } else if (phase === "ask") {
-      el.textContent = "Decide";
-      el.classList.add("ask");
-    } else if (phase === "finish") {
-      el.textContent = "Finish";
-      el.classList.add("live");
+    // Mock chrome: GET READY through pitch/freeze/read; DECIDE on ask
+    if (phase === "ask") {
+      el.hidden = false;
+      el.textContent = "DECIDE";
+    } else if (
+      phase === "setup" ||
+      phase === "pitch-cue" ||
+      phase === "playin" ||
+      phase === "freeze" ||
+      phase === "read"
+    ) {
+      el.hidden = false;
+      el.textContent = "GET READY";
     } else {
-      el.textContent = "";
+      el.hidden = true;
     }
+  }
+
+  function syncDrillHud() {
+    const total = state.queue.length || 5;
+    const n = state.index + 1;
+    const plays = state.answers.length;
+    const score = sessionScore(plays, state.correctCount, state.starsEarned);
+    const playHtml = "PLAY <em>" + n + "</em> / " + total;
+    const scoreHtml = "SCORE: <strong>" + score + "</strong>";
+    const posHtml =
+      "POSITION: <strong>" + (state.position || "—") + "</strong>";
+    const prog = $("#drill-progress");
+    const sc = $("#drill-score");
+    const pos = $("#drill-pos");
+    if (prog) prog.innerHTML = playHtml;
+    if (sc) sc.innerHTML = scoreHtml;
+    if (pos) pos.innerHTML = posHtml;
+    const fp = $("#fb-progress");
+    const fs = $("#fb-score");
+    const fpos = $("#fb-pos");
+    if (fp) fp.innerHTML = playHtml;
+    if (fs) fs.innerHTML = scoreHtml;
+    if (fpos) fpos.innerHTML = posHtml;
   }
 
   /** Read beat before choices — long enough for 8U–14U to finish the prompt */
@@ -953,11 +975,7 @@
     state.phase = "setup";
     showScreen("drill");
 
-    $("#drill-progress").textContent =
-      "PLAY " + (state.index + 1) + " / " + state.queue.length;
-    $("#drill-pos").innerHTML =
-      "POSITION: <strong>" + state.position + "</strong>";
-    updateRunningScore();
+    syncDrillHud();
 
     // 1) Situation first — count / outs / runners, runners on diamond, no ball motion
     $("#play-cue").textContent = situationSetupLine(sit);
@@ -974,9 +992,7 @@
     setAskControlsVeiled(true);
 
     const wrap = $("#diamond-wrap");
-    wrap.innerHTML =
-      '<div class="phase-banner" id="phase-banner"></div>' +
-      renderDiamondShell(sit, state.position);
+    wrap.innerHTML = renderDiamondShell(sit, state.position);
     setPhaseBanner("setup");
     // Hide ball until pitch starts
     setBallVisual(FIELD.P.x, FIELD.P.y, 0, false);
@@ -1288,31 +1304,42 @@
   }
 
   function showFeedback(sit, stars, correct, timedOut) {
-    const title = $("#feedback-title");
+    syncDrillHud();
+    let headline = "MISS!";
+    let titleClass = "feedback-title miss";
     if (timedOut) {
-      title.textContent = "Time!";
-      title.className = "feedback-title miss";
+      headline = "TIME!";
     } else if (correct) {
-      title.textContent = stars === 3 ? "Quick!" : stars === 2 ? "Solid" : "Got it";
-      title.className = "feedback-title hit";
-    } else {
-      title.textContent = "Miss";
-      title.className = "feedback-title miss";
+      headline =
+        stars === 3 ? "QUICK!" : stars === 2 ? "SOLID!" : "GOT IT!";
+      titleClass = "feedback-title hit";
     }
 
-    $$("#stars .star").forEach((el, i) => {
-      el.classList.remove("on");
-      el.classList.remove("star-pop");
-    });
+    const field = $("#feedback-field");
+    if (field) {
+      field.innerHTML =
+        renderDiamondShell(sit, state.position) +
+        '<div class="feedback-overlay">' +
+        '<div class="stars" id="stars" aria-label="Stars earned">' +
+        '<div class="star"></div><div class="star"></div><div class="star"></div>' +
+        "</div>" +
+        '<h2 class="' +
+        titleClass +
+        '" id="feedback-title">' +
+        headline +
+        "</h2></div>";
+    }
+
     $("#explanation").textContent = sit.explanation;
     const nextBtn = $("#btn-next");
     const isLast = state.index >= state.queue.length - 1;
-    nextBtn.textContent = isLast ? "See session summary" : "Next situation";
+    nextBtn.textContent = isLast ? "See Session Summary" : "Next Situation";
     showScreen("feedback");
 
-    // Stagger star pops after screen is up (prompt/layout untouched)
     requestAnimationFrame(() => {
       $$("#stars .star").forEach((el, i) => {
+        el.classList.remove("on");
+        el.classList.remove("star-pop");
         if (i < stars) {
           schedule(() => {
             el.classList.add("on");
@@ -1320,9 +1347,10 @@
           }, 80 + i * 90);
         }
       });
-      $("#explanation").classList.remove("explain-in");
-      void $("#explanation").offsetWidth;
-      $("#explanation").classList.add("explain-in");
+      const expl = $("#explanation");
+      expl.classList.remove("explain-in");
+      void expl.offsetWidth;
+      expl.classList.add("explain-in");
     });
   }
 
@@ -1334,7 +1362,7 @@
       : 0;
     const score = sessionScore(total, state.correctCount, state.starsEarned);
     const level = levelForScore(score);
-    $("#sum-level").textContent = level;
+    $("#sum-level").textContent = level.toUpperCase();
     $("#sum-score").textContent = String(score);
     $("#sum-stars").textContent = String(state.starsEarned);
     $("#sum-accuracy").textContent = accuracyPct + "%";
@@ -1412,8 +1440,6 @@
       });
       field.appendChild(btn);
     });
-    const age = $("#pos-age");
-    if (age) age.textContent = state.ageBand;
   }
 
   function initPosition() {

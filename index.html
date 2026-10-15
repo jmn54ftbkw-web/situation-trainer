@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#071a14" />
+    <meta name="theme-color" content="#00241a" />
     <title>Situation Trainer — Solo Drill</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -16,122 +16,100 @@
       <section class="screen active" id="screen-home" aria-label="Home">
         <div class="home-hero">
           <div class="home-mark-stage" aria-hidden="true">
-          <svg
-            class="home-mark"
-            viewBox="0 0 110 110"
-            focusable="false"
-          >
-            <defs>
-              <clipPath id="home-field-clip">
-                <circle cx="50" cy="48" r="40" />
-              </clipPath>
-            </defs>
-            <!-- Field: dark outfield + tan diamond + chalk + lime foul lines -->
-            <g clip-path="url(#home-field-clip)">
-              <circle cx="50" cy="48" r="40" fill="#0f3328" />
-              <polygon points="50,74 72,52 50,30 28,52" fill="#c4a06a" />
-              <polygon
-                points="50,74 72,52 50,30 28,52"
+            <svg
+              class="home-mark"
+              viewBox="0 0 110 110"
+              focusable="false"
+            >
+              <defs>
+                <clipPath id="home-field-clip">
+                  <circle cx="50" cy="48" r="40" />
+                </clipPath>
+              </defs>
+              <g clip-path="url(#home-field-clip)">
+                <circle cx="50" cy="48" r="40" fill="#0a3d2e" />
+                <polygon points="50,74 72,52 50,30 28,52" fill="#c4a06a" />
+                <line
+                  x1="50"
+                  y1="74"
+                  x2="12"
+                  y2="34"
+                  stroke="#d4ff00"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="50"
+                  y1="74"
+                  x2="88"
+                  y2="34"
+                  stroke="#d4ff00"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                />
+                <rect
+                  x="46.6"
+                  y="26.6"
+                  width="6.8"
+                  height="6.8"
+                  fill="#ffffff"
+                  transform="rotate(45 50 30)"
+                />
+                <rect
+                  x="68.6"
+                  y="48.6"
+                  width="6.8"
+                  height="6.8"
+                  fill="#ffffff"
+                  transform="rotate(45 72 52)"
+                />
+                <rect
+                  x="24.6"
+                  y="48.6"
+                  width="6.8"
+                  height="6.8"
+                  fill="#ffffff"
+                  transform="rotate(45 28 52)"
+                />
+                <path
+                  d="M44.5 71.5 L48 78.5 L51.5 71.5 L51.5 68.8 L44.5 68.8 Z"
+                  fill="#ffffff"
+                />
+                <ellipse cx="50" cy="54" rx="7.2" ry="4.6" fill="#b8956a" />
+                <line
+                  x1="45.2"
+                  y1="54"
+                  x2="54.8"
+                  y2="54"
+                  stroke="#ffffff"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </g>
+              <circle
+                cx="50"
+                cy="48"
+                r="40"
                 fill="none"
-                stroke="#ffffff"
-                stroke-width="1.6"
-                stroke-linejoin="round"
+                stroke="#d4ff00"
+                stroke-width="3.4"
               />
-              <line
-                x1="50"
-                y1="74"
-                x2="10"
-                y2="34"
-                stroke="#c8e84a"
-                stroke-width="2.4"
+              <circle cx="86" cy="80" r="16" fill="#d4ff00" />
+              <path
+                d="M 80.2 72.8 C 84.2 76.2 84.2 83.8 80.2 87.2"
+                fill="none"
+                stroke="#c0392b"
+                stroke-width="1.8"
                 stroke-linecap="round"
               />
-              <line
-                x1="50"
-                y1="74"
-                x2="90"
-                y2="34"
-                stroke="#c8e84a"
-                stroke-width="2.4"
+              <path
+                d="M 91.8 72.8 C 87.8 76.2 87.8 83.8 91.8 87.2"
+                fill="none"
+                stroke="#c0392b"
+                stroke-width="1.8"
                 stroke-linecap="round"
               />
-              <!-- Bases (white squares) -->
-              <rect
-                x="46.6"
-                y="26.6"
-                width="6.8"
-                height="6.8"
-                fill="#ffffff"
-                transform="rotate(45 50 30)"
-              />
-              <rect
-                x="68.6"
-                y="48.6"
-                width="6.8"
-                height="6.8"
-                fill="#ffffff"
-                transform="rotate(45 72 52)"
-              />
-              <rect
-                x="24.6"
-                y="48.6"
-                width="6.8"
-                height="6.8"
-                fill="#ffffff"
-                transform="rotate(45 28 52)"
-              />
-              <rect
-                x="46.6"
-                y="70.6"
-                width="6.8"
-                height="6.8"
-                fill="#ffffff"
-                transform="rotate(45 50 74)"
-              />
-              <!-- Pitcher oval + rubber -->
-              <ellipse cx="50" cy="54" rx="7.2" ry="4.6" fill="#ffffff" />
-              <line
-                x1="45.2"
-                y1="54"
-                x2="54.8"
-                y2="54"
-                stroke="#0f3328"
-                stroke-width="1.35"
-                stroke-linecap="round"
-              />
-            </g>
-            <!-- Ring: lime foul-arc on top, mid-green elsewhere -->
-            <path
-              d="M 12.4 34.4 A 40 40 0 0 1 87.6 34.4"
-              fill="none"
-              stroke="#c8e84a"
-              stroke-width="3.2"
-              stroke-linecap="butt"
-            />
-            <path
-              d="M 87.6 34.4 A 40 40 0 1 1 12.4 34.4"
-              fill="none"
-              stroke="#2f7a58"
-              stroke-width="3.2"
-              stroke-linecap="butt"
-            />
-            <!-- Soft ball overlapping lower-right of the ring -->
-            <circle cx="86" cy="80" r="16" fill="#c8e84a" />
-            <path
-              d="M 80.2 72.8 C 84.2 76.2 84.2 83.8 80.2 87.2"
-              fill="none"
-              stroke="#0f3328"
-              stroke-width="1.7"
-              stroke-linecap="round"
-            />
-            <path
-              d="M 91.8 72.8 C 87.8 76.2 87.8 83.8 91.8 87.2"
-              fill="none"
-              stroke="#0f3328"
-              stroke-width="1.7"
-              stroke-linecap="round"
-            />
-          </svg>
+            </svg>
           </div>
           <p class="section-label">Fastpitch · 8U–14U</p>
           <h1 class="brand">
@@ -144,8 +122,8 @@
         </div>
         <div class="home-controls">
           <div>
-            <p class="section-label">Age band</p>
-            <div class="seg" id="age-seg" role="group" aria-label="Age band">
+            <p class="section-label">Age range</p>
+            <div class="seg" id="age-seg" role="group" aria-label="Age range">
               <button type="button" class="selected" data-age="8U-10U">
                 8U–10U
               </button>
@@ -153,7 +131,7 @@
             </div>
           </div>
           <button type="button" class="btn btn-primary" id="btn-start">
-            Start practice
+            Start Practice
           </button>
         </div>
       </section>
@@ -161,19 +139,18 @@
       <!-- Position -->
       <section class="screen" id="screen-position" aria-label="Pick position">
         <div class="top-bar">
-          <h2>Your spot</h2>
+          <h2>Choose your position</h2>
           <button type="button" class="linkish" id="btn-back-home">Back</button>
         </div>
-        <p class="section-label">Band · <span id="pos-age">8U–10U</span></p>
         <div class="pos-field" id="pos-field" role="group" aria-label="Pick position on the field">
-          <!-- Buttons injected by app.js onto diamond coordinates -->
+          <!-- Field + buttons injected by app.js -->
         </div>
         <p class="pos-hint">
           Tap your spot on the diamond. Situations filter to that position.
         </p>
         <div class="footer-cta">
           <button type="button" class="btn btn-primary" id="btn-begin" disabled>
-            Begin session
+            Begin Session
           </button>
         </div>
       </section>
@@ -181,16 +158,29 @@
       <!-- Drill -->
       <section class="screen" id="screen-drill" aria-label="Drill">
         <div class="drill-meta">
-          <span id="drill-progress">PLAY 1 / 5</span>
-          <span id="drill-score" aria-label="Running score">SCORE: <strong>0</strong></span>
-          <span id="drill-pos">POSITION: <strong>—</strong></span>
+          <span id="drill-progress"
+            >PLAY <em>1</em> / 5</span
+          >
+          <span id="drill-score" aria-label="Running score"
+            >SCORE: <strong>0</strong></span
+          >
+          <span id="drill-pos"
+            >POSITION: <strong>—</strong></span
+          >
         </div>
         <div class="diamond-wrap" id="diamond-wrap"></div>
+        <span class="phase-chip" id="phase-chip" hidden>GET READY</span>
         <p class="play-cue" id="play-cue"></p>
-        <p class="pitch-line hidden" id="pitch-line" aria-live="polite">Here's the pitch…</p>
+        <p class="pitch-line hidden" id="pitch-line" aria-live="polite">
+          Here's the pitch…
+        </p>
         <div class="drill-ask" id="drill-ask">
           <p class="prompt hidden" id="prompt"></p>
-          <div class="ask-controls is-veiled" id="ask-controls" aria-hidden="true">
+          <div
+            class="ask-controls is-veiled"
+            id="ask-controls"
+            aria-hidden="true"
+          >
             <div class="timer-row" id="timer-row">
               <div class="timer-track">
                 <div class="timer-fill" id="timer-fill"></div>
@@ -204,18 +194,26 @@
 
       <!-- Feedback -->
       <section class="screen" id="screen-feedback" aria-label="Feedback">
-        <div class="summary-hero">
-          <h2 class="feedback-title hit" id="feedback-title">Solid</h2>
-          <div class="stars" id="stars" aria-label="Stars earned">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
+        <div class="drill-meta">
+          <span id="fb-progress">PLAY <em>1</em> / 5</span>
+          <span id="fb-score">SCORE: <strong>0</strong></span>
+          <span id="fb-pos">POSITION: <strong>—</strong></span>
+        </div>
+        <div class="diamond-wrap feedback-field" id="feedback-field">
+          <div class="feedback-overlay">
+            <div class="stars" id="stars" aria-label="Stars earned">
+              <div class="star"></div>
+              <div class="star"></div>
+              <div class="star"></div>
+            </div>
+            <h2 class="feedback-title hit" id="feedback-title">SOLID!</h2>
           </div>
         </div>
+        <div class="score-pill" aria-hidden="true">SCORE</div>
         <p class="explanation" id="explanation"></p>
         <div class="footer-cta">
           <button type="button" class="btn btn-primary" id="btn-next">
-            Next situation
+            Next Situation
           </button>
         </div>
       </section>
@@ -225,7 +223,9 @@
         <div class="summary-hero">
           <p class="level-label" id="sum-level">Bench</p>
           <div class="session-score" id="sum-score">0</div>
-          <p class="score-blurb">Stars decay with the clock — keep answering early.</p>
+          <p class="score-blurb">
+            Stars decay with the clock — keep answering early.
+          </p>
         </div>
         <div class="stats">
           <div class="stat">
@@ -237,17 +237,21 @@
             <span class="lbl">Accuracy</span>
           </div>
         </div>
-        <p class="section-label">Correct · <span id="sum-correct">0 / 5</span></p>
-        <p class="section-label" style="margin-top: 14px">Patterns to review</p>
+        <p class="correct-line">
+          Correct — <span id="sum-correct">0 / 5</span>
+        </p>
+        <p class="section-label patterns-label">Patterns to review</p>
         <ul class="patterns" id="patterns"></ul>
-        <div class="footer-cta" style="display: flex; flex-direction: column; gap: 8px">
+        <div class="footer-cta summary-actions">
           <button type="button" class="btn btn-primary" id="btn-again">
-            Same position again
+            Same Position Again
           </button>
-          <button type="button" class="btn btn-ghost" id="btn-change-pos">
-            Change position
+          <button type="button" class="btn btn-outline" id="btn-change-pos">
+            Change Position
           </button>
-          <button type="button" class="btn btn-ghost" id="btn-home">Home</button>
+          <button type="button" class="btn btn-outline" id="btn-home">
+            Home
+          </button>
         </div>
       </section>
     </div>
