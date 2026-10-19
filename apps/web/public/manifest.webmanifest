@@ -1,0 +1,10 @@
+{
+  "name": "Situation Trainer",
+  "short_name": "Situation",
+  "description": "Fastpitch softball situation trainer for 8U–14U players.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071a14",
+  "theme_color": "#071a14"
+}
