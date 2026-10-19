@@ -2,9 +2,7 @@
   "id": "tag-up-ss",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "12U-14U"
-  ],
+  "ageBands": ["12U-14U"],
   "position": "SS",
   "side": "defense",
   "gameState": {
@@ -136,9 +134,7 @@
     }
   ],
   "explanation": "Become the cutoff/relay helper. Read the throw and be ready to cut for home or redirect if the trail runner advances.",
-  "tags": [
-    "tagging-up"
-  ],
+  "tags": ["tagging-up"],
   "difficulty": 2,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged 2B, P; prompt says middle infield."

@@ -2,9 +2,7 @@
   "id": "cutoff-rf-extra",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "12U-14U"
-  ],
+  "ageBands": ["12U-14U"],
   "position": "RF",
   "side": "defense",
   "gameState": {
@@ -103,9 +101,7 @@
     }
   ],
   "explanation": "Get the ball into the cutoff quickly so the infield can stop the trail runner or contest third. Don't hold unless the play is clearly dead.",
-  "tags": [
-    "cutoff"
-  ],
+  "tags": ["cutoff"],
   "difficulty": 2,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged CF; ball is to the RF side."

@@ -2,10 +2,7 @@
   "id": "bunt-c-cover",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "C",
   "side": "defense",
   "gameState": {
@@ -103,9 +100,7 @@
     }
   ],
   "explanation": "If it's yours, field it and make a firm throw to first. Communicate so you and the pitcher don't both freeze.",
-  "tags": [
-    "bunt-defense"
-  ],
+  "tags": ["bunt-defense"],
   "difficulty": 1,
   "reviewStatus": "draft"
 }

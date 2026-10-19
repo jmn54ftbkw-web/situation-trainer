@@ -2,10 +2,7 @@
   "id": "backup-p-wp",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "P",
   "side": "defense",
   "gameState": {
@@ -103,9 +100,7 @@
     }
   ],
   "explanation": "Somebody fields; somebody covers. Know your backup responsibility so a overthrow doesn't turn into free bases.",
-  "tags": [
-    "backup"
-  ],
+  "tags": ["backup"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged 1B, 3B; choices reference the rubber."

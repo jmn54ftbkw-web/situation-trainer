@@ -19,7 +19,8 @@ export function runnersLabel(runners: Runners): string {
 
 export function countLabel(balls: number, strikes: number): string {
   const ballPart = balls === 1 ? "1 ball" : `${balls} balls`;
-  const strikePart = strikes === 0 ? "no strikes" : strikes === 1 ? "1 strike" : `${strikes} strikes`;
+  const strikePart =
+    strikes === 0 ? "no strikes" : strikes === 1 ? "1 strike" : `${strikes} strikes`;
   return `${ballPart}, ${strikePart}`;
 }
 

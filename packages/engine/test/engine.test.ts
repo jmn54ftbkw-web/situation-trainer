@@ -154,7 +154,11 @@ describe("queue", () => {
     expect(buildQueue(custom, { ageBand: "8U-10U", position: "LF" }, createRng(1))[0]?.id).toBe(
       "a",
     );
-    const all = buildQueue([sit("c", "12U-14U", "RF")], { ageBand: "8U-10U", position: "C" }, createRng(1));
+    const all = buildQueue(
+      [sit("c", "12U-14U", "RF")],
+      { ageBand: "8U-10U", position: "C" },
+      createRng(1),
+    );
     expect(all.map((s) => s.id)).toEqual(["c"]);
   });
 
@@ -172,8 +176,7 @@ describe("queue", () => {
 });
 
 describe("session", () => {
-  const mk = (seed = 11) =>
-    createSession({ bank, ageBand: "12U-14U", position: "SS", seed });
+  const mk = (seed = 11) => createSession({ bank, ageBand: "12U-14U", position: "SS", seed });
 
   it("is deterministic for a seed", () => {
     expect(mk().queue.map((s) => s.id)).toEqual(mk().queue.map((s) => s.id));
@@ -259,7 +262,10 @@ describe("game state", () => {
   });
 
   it("credits offense runs to us", () => {
-    const gs = { ...initialGameState("offense"), runners: { "1B": false, "2B": false, "3B": true } };
+    const gs = {
+      ...initialGameState("offense"),
+      runners: { "1B": false, "2B": false, "3B": true },
+    };
     const r = applyOutcome(
       gs,
       outcome({
@@ -271,7 +277,11 @@ describe("game state", () => {
   });
 
   it("retires the side on three outs and ends after 7", () => {
-    const two = { ...initialGameState("defense"), outs: 2, runners: { "1B": true, "2B": false, "3B": false } };
+    const two = {
+      ...initialGameState("defense"),
+      outs: 2,
+      runners: { "1B": true, "2B": false, "3B": false },
+    };
     const r = applyOutcome(two, outcome({ kind: "out", batterOut: true }));
     expect(r.state).toMatchObject({ outs: 0, side: "offense", inning: 1 });
     expect(r.state.runners["1B"]).toBe(false);

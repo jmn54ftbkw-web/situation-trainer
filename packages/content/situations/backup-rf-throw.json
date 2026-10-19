@@ -2,10 +2,7 @@
   "id": "backup-rf-throw",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "RF",
   "side": "defense",
   "gameState": {
@@ -115,9 +112,7 @@
     }
   ],
   "explanation": "Back up the throw. Overthrows at third are common in youth ball — RF or the nearest free player prevents the extra base.",
-  "tags": [
-    "backup"
-  ],
+  "tags": ["backup"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged 1B, C; prompt addresses RF."

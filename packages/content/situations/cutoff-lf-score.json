@@ -2,9 +2,7 @@
   "id": "cutoff-lf-score",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "12U-14U"
-  ],
+  "ageBands": ["12U-14U"],
   "position": "LF",
   "side": "defense",
   "gameState": {
@@ -115,9 +113,7 @@
     }
   ],
   "explanation": "Hit the cutoff. A low, catchable throw lets the infield cut and redirect — or let it through to home if the runner is dead.",
-  "tags": [
-    "cutoff"
-  ],
+  "tags": ["cutoff"],
   "difficulty": 2,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged CF; single is to LF."

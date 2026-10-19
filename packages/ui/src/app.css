@@ -307,15 +307,42 @@ body {
 }
 
 /* Field map — matches drill diamond layout */
-.pos-field button[data-pos="LF"] { --x: 18%; --y: 20%; }
-.pos-field button[data-pos="CF"] { --x: 50%; --y: 11%; }
-.pos-field button[data-pos="RF"] { --x: 82%; --y: 20%; }
-.pos-field button[data-pos="SS"] { --x: 36%; --y: 40%; }
-.pos-field button[data-pos="2B"] { --x: 64%; --y: 40%; }
-.pos-field button[data-pos="3B"] { --x: 22%; --y: 56%; }
-.pos-field button[data-pos="1B"] { --x: 78%; --y: 56%; }
-.pos-field button[data-pos="P"]  { --x: 50%; --y: 60%; }
-.pos-field button[data-pos="C"]  { --x: 50%; --y: 88%; }
+.pos-field button[data-pos="LF"] {
+  --x: 18%;
+  --y: 20%;
+}
+.pos-field button[data-pos="CF"] {
+  --x: 50%;
+  --y: 11%;
+}
+.pos-field button[data-pos="RF"] {
+  --x: 82%;
+  --y: 20%;
+}
+.pos-field button[data-pos="SS"] {
+  --x: 36%;
+  --y: 40%;
+}
+.pos-field button[data-pos="2B"] {
+  --x: 64%;
+  --y: 40%;
+}
+.pos-field button[data-pos="3B"] {
+  --x: 22%;
+  --y: 56%;
+}
+.pos-field button[data-pos="1B"] {
+  --x: 78%;
+  --y: 56%;
+}
+.pos-field button[data-pos="P"] {
+  --x: 50%;
+  --y: 60%;
+}
+.pos-field button[data-pos="C"] {
+  --x: 50%;
+  --y: 88%;
+}
 
 .pos-hint {
   margin: 12px 0 0;
@@ -558,7 +585,9 @@ body {
   width: 100%;
   background: var(--lime);
   transform-origin: left center;
-  transition: width 0.1s linear, background 0.2s ease;
+  transition:
+    width 0.1s linear,
+    background 0.2s ease;
 }
 
 .timer-fill.urgent {
@@ -870,7 +899,10 @@ body {
 }
 
 .pos-spot {
-  transition: fill 0.25s ease, stroke 0.25s ease, r 0.25s ease;
+  transition:
+    fill 0.25s ease,
+    stroke 0.25s ease,
+    r 0.25s ease;
 }
 
 .pos-spot.you {

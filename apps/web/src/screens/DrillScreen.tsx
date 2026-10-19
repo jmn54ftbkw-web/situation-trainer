@@ -58,7 +58,15 @@ export function DrillScreen({ session, speed, onAnswered, onDone }: Props) {
     cancelled: boolean;
     timers: ReturnType<typeof setTimeout>[];
     interval: ReturnType<typeof setInterval> | null;
-  }>({ player: null, snap: null, startedAt: 0, locked: true, cancelled: false, timers: [], interval: null });
+  }>({
+    player: null,
+    snap: null,
+    startedAt: 0,
+    locked: true,
+    cancelled: false,
+    timers: [],
+    interval: null,
+  });
 
   const choose = (choiceId: string | null, timedOut: boolean) => {
     const c = ctl.current;
@@ -76,7 +84,11 @@ export function DrillScreen({ session, speed, onAnswered, onDone }: Props) {
         setPhase("outcome");
         setCue(res.choice.outcome.caption);
         setShowPitchLine(false);
-        await c.player.playOutcome(sit, res.choice.outcome, c.snap ?? { midFlight: false, ball: { x: 50, y: 62 } });
+        await c.player.playOutcome(
+          sit,
+          res.choice.outcome,
+          c.snap ?? { midFlight: false, ball: { x: 50, y: 62 } },
+        );
         if (!c.cancelled) onDone(res.session, res.answer);
       }, lead / speed),
     );
@@ -165,7 +177,11 @@ export function DrillScreen({ session, speed, onAnswered, onDone }: Props) {
       <p className="play-cue" id="play-cue">
         {cue}
       </p>
-      <p className={`pitch-line${showPitchLine ? "" : " hidden"}`} id="pitch-line" aria-live="polite">
+      <p
+        className={`pitch-line${showPitchLine ? "" : " hidden"}`}
+        id="pitch-line"
+        aria-live="polite"
+      >
         {PITCH_LINE}
       </p>
       <div className="drill-ask" id="drill-ask">
@@ -179,7 +195,11 @@ export function DrillScreen({ session, speed, onAnswered, onDone }: Props) {
         >
           <div className="timer-row" id="timer-row">
             <div className="timer-track">
-              <div className={`timer-fill${timeCls}`} id="timer-fill" style={{ width: `${pct}%` }} />
+              <div
+                className={`timer-fill${timeCls}`}
+                id="timer-fill"
+                style={{ width: `${pct}%` }}
+              />
             </div>
             <span className={`timer-num${timeCls}`} id="timer-num" aria-live="polite">
               {Math.ceil(left)}

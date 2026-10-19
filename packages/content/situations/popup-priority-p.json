@@ -2,10 +2,7 @@
   "id": "popup-priority-p",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "P",
   "side": "defense",
   "gameState": {
@@ -92,9 +89,7 @@
     }
   ],
   "explanation": "Infielders generally have priority over the pitcher on pop-ups. First base calls it early so everyone clears.",
-  "tags": [
-    "priority"
-  ],
+  "tags": ["priority"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged C, 1B. Pitcher POV: learn to give way to 1B."

@@ -36,7 +36,13 @@ export default tseslint.config(
     // The engine and content packages must stay DOM-free (ADR 0002).
     files: ["packages/engine/src/**/*.ts", "packages/content/src/**/*.ts"],
     rules: {
-      "no-restricted-globals": ["error", "window", "document", "localStorage", "requestAnimationFrame"],
+      "no-restricted-globals": [
+        "error",
+        "window",
+        "document",
+        "localStorage",
+        "requestAnimationFrame",
+      ],
     },
   },
   {

@@ -2,10 +2,7 @@
   "id": "lf-backup-3b",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "LF",
   "side": "defense",
   "gameState": {
@@ -114,9 +111,7 @@
     }
   ],
   "explanation": "Anticipate the throw and get in the backup lane. An overthrow shouldn't become a free trip around the bases.",
-  "tags": [
-    "backup"
-  ],
+  "tags": ["backup"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged 3B; prompt addresses LF."

@@ -2,10 +2,7 @@
   "id": "tag-up-cf",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "CF",
   "side": "defense",
   "gameState": {
@@ -118,9 +115,7 @@
     }
   ],
   "explanation": "Catch it, then get a strong throw into the cutoff toward home. Assume the runner tags unless the coach holds them.",
-  "tags": [
-    "tagging-up"
-  ],
+  "tags": ["tagging-up"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged LF, RF; fly is to CF."

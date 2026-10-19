@@ -2,10 +2,7 @@
   "id": "force-ss-dp",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "SS",
   "side": "defense",
   "gameState": {
@@ -138,9 +135,7 @@
     }
   ],
   "explanation": "Force at second first. Turn two if the feed is clean — but get the sure out before freelancing to first only.",
-  "tags": [
-    "force-play"
-  ],
+  "tags": ["force-play"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged 2B; ball is hit to SS."

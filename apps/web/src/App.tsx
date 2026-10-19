@@ -1,6 +1,13 @@
 import { useMemo, useState } from "react";
 import { bank, type AgeBand, type Position, type Situation } from "@st/content";
-import { advance, createSession, isLastPlay, summarize, type AnswerRecord, type TrainSession } from "@st/engine";
+import {
+  advance,
+  createSession,
+  isLastPlay,
+  summarize,
+  type AnswerRecord,
+  type TrainSession,
+} from "@st/engine";
 import { createDeviceStore } from "@st/data";
 import { nextSeed, readConfig } from "./config.ts";
 import { HomeScreen } from "./screens/HomeScreen.tsx";

@@ -115,7 +115,10 @@ export function validateBank(items: unknown[]): ValidationResult {
     const parsed = SituationSchema.safeParse(raw);
     if (!parsed.success) {
       for (const issue of parsed.error.issues) {
-        issues.push({ id: rawId, message: `${issue.path.join(".") || "(root)"}: ${issue.message}` });
+        issues.push({
+          id: rawId,
+          message: `${issue.path.join(".") || "(root)"}: ${issue.message}`,
+        });
       }
       return;
     }

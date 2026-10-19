@@ -2,10 +2,7 @@
   "id": "force-2b-cover",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "SS",
   "side": "defense",
   "gameState": {
@@ -113,9 +110,7 @@
     }
   ],
   "explanation": "One middle infielder covers second for the force. Communicate so SS and 2B don't both go or both freeze.",
-  "tags": [
-    "force-play"
-  ],
+  "tags": ["force-play"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy id says 2B, but on a grounder to 1B the shortstop covers second. Needs a 2B-true variant (2B covers first)."

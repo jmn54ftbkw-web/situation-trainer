@@ -2,10 +2,7 @@
   "id": "force-1b-grounder",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "1B",
   "side": "defense",
   "gameState": {
@@ -113,9 +110,7 @@
     }
   ],
   "explanation": "With a runner on first and fewer than two outs, the force at second is the sure out. Flip or throw to the covering middle infielder.",
-  "tags": [
-    "force-play"
-  ],
+  "tags": ["force-play"],
   "difficulty": 1,
   "reviewStatus": "draft"
 }

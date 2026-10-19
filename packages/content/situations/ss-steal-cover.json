@@ -2,10 +2,7 @@
   "id": "ss-steal-cover",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "2B",
   "side": "defense",
   "gameState": {
@@ -99,9 +96,7 @@
     }
   ],
   "explanation": "Get to the bag early, give a chest-high target, and tag. Don't chase into a rundown unless the throw pulls you off.",
-  "tags": [
-    "force-play"
-  ],
+  "tags": ["force-play"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged SS, C. Assigned to 2B so 2B has a POV item; steal coverage varies by team — coach review."

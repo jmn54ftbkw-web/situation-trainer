@@ -63,7 +63,12 @@ export function SummaryScreen({
         <button type="button" className="btn btn-primary" id="btn-again" onClick={onAgain}>
           Same position again
         </button>
-        <button type="button" className="btn btn-ghost" id="btn-change-pos" onClick={onChangePosition}>
+        <button
+          type="button"
+          className="btn btn-ghost"
+          id="btn-change-pos"
+          onClick={onChangePosition}
+        >
           Change position
         </button>
         <button type="button" className="btn btn-ghost" id="btn-home" onClick={onHome}>

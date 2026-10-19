@@ -2,10 +2,7 @@
   "id": "p-comebacker-force",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "P",
   "side": "defense",
   "gameState": {
@@ -103,9 +100,7 @@
     }
   ],
   "explanation": "Force at second is the priority with a runner on first. Make a firm, accurate throw to the covering infielder.",
-  "tags": [
-    "force-play"
-  ],
+  "tags": ["force-play"],
   "difficulty": 1,
   "reviewStatus": "draft"
 }

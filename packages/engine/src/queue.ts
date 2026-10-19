@@ -23,7 +23,11 @@ export function buildQueue(
     bank.filter((s) => s.position === position && s.ageBands.includes(ageBand)),
     rng,
   );
-  if (pool.length === 0) pool = shuffle(bank.filter((s) => s.position === position), rng);
+  if (pool.length === 0)
+    pool = shuffle(
+      bank.filter((s) => s.position === position),
+      rng,
+    );
   if (pool.length === 0) pool = shuffle(bank, rng);
 
   const picked: Situation[] = [];

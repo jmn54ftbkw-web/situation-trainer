@@ -2,10 +2,7 @@
   "id": "popup-priority-ss",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "SS",
   "side": "defense",
   "gameState": {
@@ -96,9 +93,7 @@
     }
   ],
   "explanation": "If the shortstop can get there comfortably, SS has priority over the outfielder. Call it early so LF doesn't collide.",
-  "tags": [
-    "priority"
-  ],
+  "tags": ["priority"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged 3B, LF."

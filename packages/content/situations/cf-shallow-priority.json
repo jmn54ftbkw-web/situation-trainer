@@ -2,10 +2,7 @@
   "id": "cf-shallow-priority",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "CF",
   "side": "defense",
   "gameState": {
@@ -78,9 +75,7 @@
     }
   ],
   "explanation": "On shallow flies, the outfielder coming in usually has the better read and priority. Call it loud so infielders peel off.",
-  "tags": [
-    "priority"
-  ],
+  "tags": ["priority"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged SS, 2B."

@@ -2,10 +2,7 @@
   "id": "bunt-3b-charge",
   "version": 1,
   "schemaVersion": 1,
-  "ageBands": [
-    "8U-10U",
-    "12U-14U"
-  ],
+  "ageBands": ["8U-10U", "12U-14U"],
   "position": "3B",
   "side": "defense",
   "gameState": {
@@ -152,9 +149,7 @@
     }
   ],
   "explanation": "Charge the bunt, field it clean, and get the lead runner at second when the force is there. Don't sit and wait.",
-  "tags": [
-    "bunt-defense"
-  ],
+  "tags": ["bunt-defense"],
   "difficulty": 1,
   "reviewStatus": "draft",
   "reviewNotes": "Legacy also tagged P, C; bunt is toward third."

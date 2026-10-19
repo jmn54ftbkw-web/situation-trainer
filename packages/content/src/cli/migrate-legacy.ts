@@ -59,7 +59,10 @@ const POV: Record<string, { position: Position; note?: string }> = {
   "bunt-c-cover": { position: "C" },
   "tag-up-cf": { position: "CF", note: "Legacy also tagged LF, RF; fly is to CF." },
   "tag-up-ss": { position: "SS", note: "Legacy also tagged 2B, P; prompt says middle infield." },
-  "backup-p-wp": { position: "P", note: "Legacy also tagged 1B, 3B; choices reference the rubber." },
+  "backup-p-wp": {
+    position: "P",
+    note: "Legacy also tagged 1B, 3B; choices reference the rubber.",
+  },
   "backup-rf-throw": { position: "RF", note: "Legacy also tagged 1B, C; prompt addresses RF." },
   "force-2b-cover": {
     position: "SS",

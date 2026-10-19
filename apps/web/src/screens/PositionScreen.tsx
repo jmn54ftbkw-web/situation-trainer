@@ -28,7 +28,12 @@ export function PositionScreen({
       <p className="section-label">
         Band · <span id="pos-age">{ageBand}</span>
       </p>
-      <div className="pos-field" id="pos-field" role="group" aria-label="Pick position on the field">
+      <div
+        className="pos-field"
+        id="pos-field"
+        role="group"
+        aria-label="Pick position on the field"
+      >
         {ORDER.map((pos) => (
           <button
             key={pos}

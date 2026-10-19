@@ -41,7 +41,19 @@ describe("geometry", () => {
   });
 
   it("has a profile for every ball type", () => {
-    for (const t of ["grounder", "bunt", "wild-pitch", "single", "gap", "line", "popup", "fly", "steal", "throw", "hit"] as const) {
+    for (const t of [
+      "grounder",
+      "bunt",
+      "wild-pitch",
+      "single",
+      "gap",
+      "line",
+      "popup",
+      "fly",
+      "steal",
+      "throw",
+      "hit",
+    ] as const) {
       expect(ballProfile(t).duration).toBeGreaterThan(0);
     }
     expect(heightAt(0.5, 1, "arc")).toBeCloseTo(1);
@@ -101,9 +113,9 @@ describe("play timeline", () => {
     expect(end.runners).toEqual([FIELD["2B"], FIELD.home]);
     expect(samplePlay(tl, 0).runners).toEqual([FIELD["1B"], FIELD["3B"]]);
     const withBall = buildPlayTimeline(byId("force-1b-grounder"));
-    expect(samplePlay(withBall, withBall.actionStart + withBall.actionDur / 2).runners[0]).not.toEqual(
-      FIELD["1B"],
-    );
+    expect(
+      samplePlay(withBall, withBall.actionStart + withBall.actionDur / 2).runners[0],
+    ).not.toEqual(FIELD["1B"]);
   });
 
   it("samples every bank situation without NaN", () => {

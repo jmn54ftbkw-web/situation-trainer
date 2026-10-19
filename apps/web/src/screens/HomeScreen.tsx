@@ -16,12 +16,7 @@ export function HomeScreen({
     <Screen id="home" label="Home">
       <div className="home-hero">
         <svg className="home-mark" viewBox="0 0 100 100" aria-hidden="true">
-          <polygon
-            points="50,90 80,58 50,26 20,58"
-            fill="none"
-            stroke="#b8e23a"
-            strokeWidth="2"
-          />
+          <polygon points="50,90 80,58 50,26 20,58" fill="none" stroke="#b8e23a" strokeWidth="2" />
           <circle cx="50" cy="62" r="4" fill="#b8e23a" opacity="0.5" />
         </svg>
         <p className="section-label">Fastpitch · 8U–14U</p>

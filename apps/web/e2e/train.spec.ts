@@ -36,7 +36,9 @@ test("full Train session at phone width follows the legacy flow", async ({ page 
     const choices = page.locator("#choices .choice");
     await expect(choices.first()).toBeEnabled();
     expect(await choices.count()).toBeGreaterThanOrEqual(2);
-    for (const box of await choices.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))) {
+    for (const box of await choices.evaluateAll((els) =>
+      els.map((e) => e.getBoundingClientRect().height),
+    )) {
       expect(box).toBeGreaterThanOrEqual(44);
     }
     await choices.first().click();
