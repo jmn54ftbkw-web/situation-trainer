@@ -1,0 +1,105 @@
+{
+  "id": "popup-priority-ss",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": [
+    "8U-10U",
+    "12U-14U"
+  ],
+  "position": "SS",
+  "side": "defense",
+  "gameState": {
+    "inning": 3,
+    "outs": 0,
+    "balls": 2,
+    "strikes": 0,
+    "runners": {
+      "1B": true,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "popup",
+      "from": "home",
+      "region": "SS-LF"
+    },
+    "runnerMotion": [],
+    "freeze": {
+      "mode": "in-flight",
+      "at": 0.5
+    }
+  },
+  "prompt": "Pop foul-ish between short and left. Runner on first. Who takes the catch?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Shortstop — infield priority, call it",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "Shortstop calls it — caught!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "1B",
+              "endState": "hold"
+            }
+          ]
+        },
+        "batterOut": true
+      }
+    },
+    {
+      "id": "b",
+      "label": "Left field always — deeper ball",
+      "correct": false,
+      "outcome": {
+        "kind": "error",
+        "caption": "It drops between them — runner moves up!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ],
+          "drop": true
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Third base, no call needed",
+      "correct": false,
+      "outcome": {
+        "kind": "error",
+        "caption": "It drops between them — runner moves up!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ],
+          "drop": true
+        }
+      }
+    }
+  ],
+  "explanation": "If the shortstop can get there comfortably, SS has priority over the outfielder. Call it early so LF doesn't collide.",
+  "tags": [
+    "priority"
+  ],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged 3B, LF."
+}

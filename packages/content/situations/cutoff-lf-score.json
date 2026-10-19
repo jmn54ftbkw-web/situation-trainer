@@ -1,0 +1,124 @@
+{
+  "id": "cutoff-lf-score",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": [
+    "12U-14U"
+  ],
+  "position": "LF",
+  "side": "defense",
+  "gameState": {
+    "inning": 5,
+    "outs": 1,
+    "balls": 2,
+    "strikes": 1,
+    "runners": {
+      "1B": false,
+      "2B": true,
+      "3B": false
+    },
+    "scoreDiff": -1
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "single",
+      "from": "home",
+      "region": "LF",
+      "throwTo": "cutoff-home"
+    },
+    "runnerMotion": [
+      {
+        "from": "2B",
+        "to": "home",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "in-flight",
+      "at": 0.6
+    }
+  },
+  "prompt": "Single in front of you. Runner from second is going home. Who do you throw to?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Airmail home — skip the cutoff",
+      "correct": false,
+      "outcome": {
+        "kind": "run",
+        "caption": "Airmail sails — runner scores!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "home",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "2B",
+              "to": "home",
+              "endState": "score"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Hit the cutoff / relay toward home",
+      "correct": true,
+      "outcome": {
+        "kind": "none",
+        "caption": "Hit the cutoff — play stays alive!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "cutoff-home",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "2B",
+              "to": "3B",
+              "endState": "hold"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Throw behind the runner to second",
+      "correct": false,
+      "outcome": {
+        "kind": "run",
+        "caption": "Airmail sails — runner scores!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "home",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "2B",
+              "to": "home",
+              "endState": "score"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "Hit the cutoff. A low, catchable throw lets the infield cut and redirect — or let it through to home if the runner is dead.",
+  "tags": [
+    "cutoff"
+  ],
+  "difficulty": 2,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged CF; single is to LF."
+}

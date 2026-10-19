@@ -1,0 +1,123 @@
+{
+  "id": "lf-backup-3b",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": [
+    "8U-10U",
+    "12U-14U"
+  ],
+  "position": "LF",
+  "side": "defense",
+  "gameState": {
+    "inning": 4,
+    "outs": 0,
+    "balls": 0,
+    "strikes": 1,
+    "runners": {
+      "1B": true,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "grounder",
+      "from": "home",
+      "region": "SS",
+      "throwTo": "3B"
+    },
+    "runnerMotion": [
+      {
+        "from": "1B",
+        "to": "2B",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "after"
+    }
+  },
+  "prompt": "Grounder to short. They may throw to third or across the diamond. Left field — where do you go?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Move in to back up third / the throw side",
+      "correct": true,
+      "outcome": {
+        "kind": "safe",
+        "caption": "LF moves in — backup lane ready!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "3B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Stay deep in left and watch",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Ball gets away — extra base!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "3B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "3B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Cover second base",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Ball gets away — extra base!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "3B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "3B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "Anticipate the throw and get in the backup lane. An overthrow shouldn't become a free trip around the bases.",
+  "tags": [
+    "backup"
+  ],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged 3B; prompt addresses LF."
+}

@@ -1,0 +1,87 @@
+{
+  "id": "cf-shallow-priority",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": [
+    "8U-10U",
+    "12U-14U"
+  ],
+  "position": "CF",
+  "side": "defense",
+  "gameState": {
+    "inning": 2,
+    "outs": 1,
+    "balls": 3,
+    "strikes": 1,
+    "runners": {
+      "1B": false,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "popup",
+      "from": "home",
+      "region": "CF"
+    },
+    "runnerMotion": [],
+    "freeze": {
+      "mode": "in-flight",
+      "at": 0.52
+    }
+  },
+  "prompt": "Short pop into shallow center. Infielders are drifting back. Who should catch it?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Center field — call off the infield if you have it",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "CF calls off the infield — catch!",
+        "animation": {
+          "ballPath": [],
+          "runners": []
+        },
+        "batterOut": true
+      }
+    },
+    {
+      "id": "b",
+      "label": "Shortstop always — infielders go first on every pop",
+      "correct": false,
+      "outcome": {
+        "kind": "error",
+        "caption": "Everybody freezes — it drops!",
+        "animation": {
+          "ballPath": [],
+          "runners": [],
+          "drop": true
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Let it drop between everyone",
+      "correct": false,
+      "outcome": {
+        "kind": "error",
+        "caption": "Everybody freezes — it drops!",
+        "animation": {
+          "ballPath": [],
+          "runners": [],
+          "drop": true
+        }
+      }
+    }
+  ],
+  "explanation": "On shallow flies, the outfielder coming in usually has the better read and priority. Call it loud so infielders peel off.",
+  "tags": [
+    "priority"
+  ],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged SS, 2B."
+}

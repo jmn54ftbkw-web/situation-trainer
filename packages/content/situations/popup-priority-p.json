@@ -1,0 +1,101 @@
+{
+  "id": "popup-priority-p",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": [
+    "8U-10U",
+    "12U-14U"
+  ],
+  "position": "P",
+  "side": "defense",
+  "gameState": {
+    "inning": 1,
+    "outs": 1,
+    "balls": 1,
+    "strikes": 2,
+    "runners": {
+      "1B": false,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "popup",
+      "from": "home",
+      "region": "mound-1B"
+    },
+    "runnerMotion": [],
+    "freeze": {
+      "mode": "in-flight",
+      "at": 0.55
+    }
+  },
+  "prompt": "Pop-up between the mound and first. Who should take it?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Pitcher — call it loud and catch",
+      "correct": false,
+      "outcome": {
+        "kind": "error",
+        "caption": "Collision — it drops!",
+        "animation": {
+          "ballPath": [],
+          "runners": [],
+          "drop": true
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Catcher coming from home",
+      "correct": false,
+      "outcome": {
+        "kind": "error",
+        "caption": "Collision — it drops!",
+        "animation": {
+          "ballPath": [],
+          "runners": [],
+          "drop": true
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "First base — infield priority over pitcher",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "First base camps under it — catch!",
+        "animation": {
+          "ballPath": [],
+          "runners": []
+        },
+        "batterOut": true
+      }
+    },
+    {
+      "id": "d",
+      "label": "Let it drop on purpose",
+      "correct": false,
+      "outcome": {
+        "kind": "error",
+        "caption": "Collision — it drops!",
+        "animation": {
+          "ballPath": [],
+          "runners": [],
+          "drop": true
+        }
+      }
+    }
+  ],
+  "explanation": "Infielders generally have priority over the pitcher on pop-ups. First base calls it early so everyone clears.",
+  "tags": [
+    "priority"
+  ],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged C, 1B. Pitcher POV: learn to give way to 1B."
+}
