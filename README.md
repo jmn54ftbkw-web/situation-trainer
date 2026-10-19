@@ -1,24 +1,20 @@
 # Situation Trainer
 
-Phone-friendly static prototype for a solo fastpitch situation drill.
+Fastpitch softball situation trainer for 8U–14U players: pick a position, read the play, decide
+under the clock, earn stars for speed.
 
-Open **https://jmn54ftbkw-web.github.io/situation-trainer/** on a phone, or clone this repo and serve the files:
+Live: **https://jmn54ftbkw-web.github.io/situation-trainer/** (original prototype:
+[`/legacy/`](https://jmn54ftbkw-web.github.io/situation-trainer/legacy/)).
+
+## Quick start
 
 ```bash
-python3 -m http.server 8765
+corepack enable        # or install pnpm 10
+pnpm install
+pnpm dev               # http://localhost:5173
+pnpm test && pnpm content:validate
 ```
 
-Then visit http://127.0.0.1:8765/
-
-## Flow
-
-Home → pick age band → pick position → setup → pitch → freeze → read → choose → stars + explanation → session summary.
-
-## Files
-
-| File | Role |
-|------|------|
-| `index.html` | Screens shell |
-| `styles.css` | Sports-training UI |
-| `app.js` | Drill loop, timer, scoring, diamond |
-| `situations.js` | Authored sample situations |
+Monorepo layout, commands, and contribution rules: **[AGENTS.md](AGENTS.md)**.
+Architecture: [docs/architecture.md](docs/architecture.md) · Writing situations:
+[docs/content-authoring.md](docs/content-authoring.md) · Roadmap: [docs/roadmap.md](docs/roadmap.md).

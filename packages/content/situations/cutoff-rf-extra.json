@@ -1,0 +1,108 @@
+{
+  "id": "cutoff-rf-extra",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": ["12U-14U"],
+  "position": "RF",
+  "side": "defense",
+  "gameState": {
+    "inning": 4,
+    "outs": 0,
+    "balls": 3,
+    "strikes": 1,
+    "runners": {
+      "1B": true,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "gap",
+      "from": "home",
+      "region": "RF",
+      "throwTo": "cutoff-3B"
+    },
+    "runnerMotion": [
+      {
+        "from": "1B",
+        "to": "3B",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "after"
+    }
+  },
+  "prompt": "Ball in the right-center gap. Runner from first is heading for third. Best throw?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Through the cutoff toward third",
+      "correct": true,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Through the cutoff toward third!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "cutoff-3B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Straight to first base",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Ball held — runner takes third!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "3B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Hold it — no play",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Ball held — runner takes third!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "3B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "Get the ball into the cutoff quickly so the infield can stop the trail runner or contest third. Don't hold unless the play is clearly dead.",
+  "tags": ["cutoff"],
+  "difficulty": 2,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged CF; ball is to the RF side."
+}

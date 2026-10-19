@@ -1,0 +1,119 @@
+{
+  "id": "backup-rf-throw",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": ["8U-10U", "12U-14U"],
+  "position": "RF",
+  "side": "defense",
+  "gameState": {
+    "inning": 3,
+    "outs": 1,
+    "balls": 0,
+    "strikes": 2,
+    "runners": {
+      "1B": false,
+      "2B": true,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "grounder",
+      "from": "home",
+      "region": "1B",
+      "throwTo": "3B"
+    },
+    "runnerMotion": [
+      {
+        "from": "2B",
+        "to": "3B",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "in-flight",
+      "at": 0.7
+    }
+  },
+  "prompt": "Grounder to first. They're throwing across to third to nab the runner. Right field — what do you do?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Sprint in to back up third / the overthrow lane",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "RF sprints in — backup is set!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "3B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "2B",
+              "to": "3B",
+              "endState": "out"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Stay in right field watching",
+      "correct": false,
+      "outcome": {
+        "kind": "run",
+        "caption": "Overthrow gets past — runner scores!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "3B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "2B",
+              "to": "home",
+              "endState": "score"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Back up first base only",
+      "correct": false,
+      "outcome": {
+        "kind": "run",
+        "caption": "Overthrow gets past — runner scores!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "3B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "2B",
+              "to": "home",
+              "endState": "score"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "Back up the throw. Overthrows at third are common in youth ball — RF or the nearest free player prevents the extra base.",
+  "tags": ["backup"],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged 1B, C; prompt addresses RF."
+}

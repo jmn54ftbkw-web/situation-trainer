@@ -1,0 +1,122 @@
+{
+  "id": "tag-up-cf",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": ["8U-10U", "12U-14U"],
+  "position": "CF",
+  "side": "defense",
+  "gameState": {
+    "inning": 5,
+    "outs": 1,
+    "balls": 2,
+    "strikes": 2,
+    "runners": {
+      "1B": false,
+      "2B": false,
+      "3B": true
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "fly",
+      "from": "home",
+      "region": "CF",
+      "throwTo": "cutoff-home"
+    },
+    "runnerMotion": [
+      {
+        "from": "3B",
+        "to": "home",
+        "timing": "after-catch"
+      }
+    ],
+    "freeze": {
+      "mode": "in-flight",
+      "at": 0.58
+    }
+  },
+  "prompt": "Fly ball to you. Runner on third, one out. After the catch?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Throw through the cutoff toward home — runner may tag",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "Catch and throw through the cutoff!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "cutoff-home",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "3B",
+              "to": "home",
+              "endState": "out"
+            }
+          ]
+        },
+        "batterOut": true
+      }
+    },
+    {
+      "id": "b",
+      "label": "Jog it in — no urgency",
+      "correct": false,
+      "outcome": {
+        "kind": "run",
+        "caption": "Soft toss — runner scores!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "2B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "3B",
+              "to": "home",
+              "endState": "score"
+            }
+          ]
+        },
+        "batterOut": true
+      }
+    },
+    {
+      "id": "c",
+      "label": "Throw to second base only",
+      "correct": false,
+      "outcome": {
+        "kind": "run",
+        "caption": "Soft toss — runner scores!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "2B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "3B",
+              "to": "home",
+              "endState": "score"
+            }
+          ]
+        },
+        "batterOut": true
+      }
+    }
+  ],
+  "explanation": "Catch it, then get a strong throw into the cutoff toward home. Assume the runner tags unless the coach holds them.",
+  "tags": ["tagging-up"],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged LF, RF; fly is to CF."
+}

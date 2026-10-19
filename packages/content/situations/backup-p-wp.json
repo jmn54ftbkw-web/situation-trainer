@@ -1,0 +1,107 @@
+{
+  "id": "backup-p-wp",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": ["8U-10U", "12U-14U"],
+  "position": "P",
+  "side": "defense",
+  "gameState": {
+    "inning": 2,
+    "outs": 0,
+    "balls": 2,
+    "strikes": 1,
+    "runners": {
+      "1B": true,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "wild-pitch",
+      "from": "home",
+      "region": "backstop"
+    },
+    "runnerMotion": [
+      {
+        "from": "1B",
+        "to": "2B",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "after"
+    }
+  },
+  "prompt": "Wild pitch rolls to the backstop. Runner from first is going. Where should you be?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Cover / back up the throw to second or home as assigned",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "Cover your base — backup is there!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "2B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "out"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Stay on the rubber and watch",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Everyone watches — free base!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Chase the ball to the backstop yourself (pitcher always)",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Everyone watches — free base!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "Somebody fields; somebody covers. Know your backup responsibility so a overthrow doesn't turn into free bases.",
+  "tags": ["backup"],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged 1B, 3B; choices reference the rubber."
+}

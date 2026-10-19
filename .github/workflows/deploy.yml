@@ -1,0 +1,69 @@
+name: Deploy Pages
+
+# Requires repo Settings → Pages → Source = "GitHub Actions".
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "What to serve at the site root"
+        type: choice
+        options: [web, legacy]
+        default: web
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # Rollback lever: set the repo variable DEPLOY_APP=legacy (or run manually with app=legacy)
+  # to serve the frozen prototype at the root again.
+  DEPLOY_APP: ${{ inputs.app || vars.DEPLOY_APP || 'web' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build apps/web
+        run: pnpm --filter @st/web build
+        env:
+          VITE_BASE: /situation-trainer/
+      - name: Assemble site
+        run: |
+          mkdir -p site
+          if [ "$DEPLOY_APP" = "legacy" ]; then
+            cp -R legacy/prototype/. site/
+          else
+            cp -R apps/web/dist/. site/
+            mkdir -p site/legacy
+            cp -R legacy/prototype/. site/legacy/
+          fi
+          touch site/.nojekyll
+          echo "Serving: $DEPLOY_APP"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

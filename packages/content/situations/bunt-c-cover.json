@@ -1,0 +1,106 @@
+{
+  "id": "bunt-c-cover",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": ["8U-10U", "12U-14U"],
+  "position": "C",
+  "side": "defense",
+  "gameState": {
+    "inning": 4,
+    "outs": 0,
+    "balls": 1,
+    "strikes": 1,
+    "runners": {
+      "1B": false,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "bunt",
+      "from": "home",
+      "region": "home"
+    },
+    "runnerMotion": [
+      {
+        "from": "home",
+        "to": "1B",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "after"
+    }
+  },
+  "prompt": "Bunt out in front of the plate. Nobody on. What do you do?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Field it and throw to first",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "Field it and throw to first!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "1B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "home",
+              "to": "1B",
+              "endState": "out"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Let the pitcher take every bunt",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Nobody takes it — batter-runner safe!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "home",
+              "to": "1B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Hold for a rundown that isn't there",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Nobody takes it — batter-runner safe!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "home",
+              "to": "1B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "If it's yours, field it and make a firm throw to first. Communicate so you and the pitcher don't both freeze.",
+  "tags": ["bunt-defense"],
+  "difficulty": 1,
+  "reviewStatus": "draft"
+}

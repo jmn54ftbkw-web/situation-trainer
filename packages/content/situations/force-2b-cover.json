@@ -1,0 +1,117 @@
+{
+  "id": "force-2b-cover",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": ["8U-10U", "12U-14U"],
+  "position": "SS",
+  "side": "defense",
+  "gameState": {
+    "inning": 1,
+    "outs": 0,
+    "balls": 3,
+    "strikes": 2,
+    "runners": {
+      "1B": true,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "grounder",
+      "from": "home",
+      "region": "1B"
+    },
+    "runnerMotion": [
+      {
+        "from": "1B",
+        "to": "2B",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "after"
+    }
+  },
+  "prompt": "Grounder to first with a runner on first. You're the middle infielder. What do you do?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Cover second for the force throw",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "Cover second — force is there!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "2B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "out"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Run to first to help",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Nobody covers — runner slides in safe!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "1B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Stay put and watch",
+      "correct": false,
+      "outcome": {
+        "kind": "safe",
+        "caption": "Nobody covers — runner slides in safe!",
+        "animation": {
+          "ballPath": [
+            {
+              "to": "1B",
+              "kind": "throw"
+            }
+          ],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "One middle infielder covers second for the force. Communicate so SS and 2B don't both go or both freeze.",
+  "tags": ["force-play"],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy id says 2B, but on a grounder to 1B the shortstop covers second. Needs a 2B-true variant (2B covers first)."
+}

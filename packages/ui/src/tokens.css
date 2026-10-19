@@ -1,0 +1,20 @@
+/* Design tokens — keep in sync with tokens.ts and docs/design-system.md */
+:root {
+  --bg-deep: #071a14;
+  --bg-field: #0d2f24;
+  --bg-panel: #12382c;
+  --chalk: #e8efe6;
+  --chalk-dim: #9db5a8;
+  --lime: #b8e23a;
+  --lime-hot: #d4ff5a;
+  --amber: #f0a020;
+  --danger: #e85d4c;
+  --ok: #5ecf8a;
+  --line: rgba(232, 239, 230, 0.14);
+  --shadow-ink: rgba(0, 0, 0, 0.45);
+  --phone-w: 390px;
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --radius: 14px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}

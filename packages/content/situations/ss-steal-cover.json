@@ -1,0 +1,103 @@
+{
+  "id": "ss-steal-cover",
+  "version": 1,
+  "schemaVersion": 1,
+  "ageBands": ["8U-10U", "12U-14U"],
+  "position": "2B",
+  "side": "defense",
+  "gameState": {
+    "inning": 3,
+    "outs": 0,
+    "balls": 1,
+    "strikes": 1,
+    "runners": {
+      "1B": true,
+      "2B": false,
+      "3B": false
+    }
+  },
+  "sequence": {
+    "pitch": true,
+    "ball": {
+      "type": "steal",
+      "from": "C",
+      "region": "2B"
+    },
+    "runnerMotion": [
+      {
+        "from": "1B",
+        "to": "2B",
+        "timing": "with-ball"
+      }
+    ],
+    "freeze": {
+      "mode": "in-flight",
+      "at": 0.65
+    }
+  },
+  "prompt": "Runner breaks for second on a steal. Pitch is clean to the catcher. Your job?",
+  "choices": [
+    {
+      "id": "a",
+      "label": "Cover second, receive the throw, tag",
+      "correct": true,
+      "outcome": {
+        "kind": "out",
+        "caption": "Bag and tag — out at second!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "out"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b",
+      "label": "Chase the runner into the baseline",
+      "correct": false,
+      "outcome": {
+        "kind": "steal",
+        "caption": "Late to the bag — stolen base!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "c",
+      "label": "Back up home plate",
+      "correct": false,
+      "outcome": {
+        "kind": "steal",
+        "caption": "Late to the bag — stolen base!",
+        "animation": {
+          "ballPath": [],
+          "runners": [
+            {
+              "from": "1B",
+              "to": "2B",
+              "endState": "safe"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "explanation": "Get to the bag early, give a chest-high target, and tag. Don't chase into a rundown unless the throw pulls you off.",
+  "tags": ["force-play"],
+  "difficulty": 1,
+  "reviewStatus": "draft",
+  "reviewNotes": "Legacy also tagged SS, C. Assigned to 2B so 2B has a POV item; steal coverage varies by team — coach review."
+}
