@@ -58,6 +58,22 @@ importers:
         specifier: ^3.2.0
         version: 3.2.7(@types/node@22.20.5)(tsx@4.23.15)
 
+  packages/engine:
+    dependencies:
+      '@st/content':
+        specifier: workspace:*
+        version: link:../content
+    devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^3.2.0
+        version: 3.2.7(vitest@3.2.7(@types/node@22.20.5)(tsx@4.23.15))
+      typescript:
+        specifier: ~5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.5)(tsx@4.23.15)
+
 packages:
 
   '@ampproject/remapping@2.3.0':
